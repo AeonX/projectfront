@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 mb-5">
+            <form style="border: 1px solid black" class="px-5 pt-5" (ngSubmit)="onSubmit()" #userForm="ngForm">
+                <!-- Vertical -->
+                <div class="form-group">
+
+                    <h1 class="mb-5">Register</h1>
+
+                    <div class="row">
+                        <div class="col-6">
+                                <input type="firstname" name="firstname" id = "firstname" class="form-control mb-3" [(ngModel)]="user.firstname" required #firstname="ngModel" placeholder="First Name">
+                        </div>
+                        <div class="col-6">
+                                <input type="lastname" name="lastname" id="lastname" class="form-control mb-3" [(ngModel)]="user.lastname" required #lastname="ngModel" placeholder="Last Name">
+                        </div>
+                            
+                        <div class="col-6">
+                                <input type="username" name="username" id = "username" class="form-control mb-3" [(ngModel)]="user.username" required #username="ngModel" placeholder="Username">
+                        </div>
+                        <div class="col-6">
+                                <input type="email" name="email" id = "myEmail" class="form-control mb-3" [(ngModel)]="user.email" required #email="ngModel" placeholder="Email">
+                        </div>
+
+                        <div class="col-6">
+                                <input type="password" name="password" id="myPassword" class="form-control mb-3" [(ngModel)]="user.pwd" required #pwd="ngModel" placeholder="Password">
+                        </div>
+                        <div class="col-6">
+                                <input type="password" id="myPassword" class="form-control mb-3" required placeholder="Confirm password">
+                        </div>
+                    </div>
+                   <button type="submit" class="btn btn-primary mb-5" [disabled]="!userForm.form.valid" required class="btn btn-info">Submit</button>
+                </div>
+             </form>
+        </div>
+    </div>
+</div>

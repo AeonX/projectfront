@@ -1,0 +1,23 @@
+<div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mb-5 mt-3">
+                <form style="border: 1px solid black" class="px-5 pt-3" (ngSubmit)="onSubmit()" #userForm="ngForm">
+                    <!-- Vertical -->
+                    <div class="form-group">
+    
+                        <h1 class="mb-5">Login</h1>
+    
+                        <div class="row">
+                            <div class="col-6">
+                                    <input type="username" name="username" id = "username" class="form-control mb-3" [(ngModel)]="user.username" required #username="ngModel" placeholder="Username">
+                            </div>
+                            <div class="col-6">
+                                    <input type="password" name="password" id="myPassword" class="form-control mb-3" [(ngModel)]="user.pwd" required #pwd="ngModel" placeholder="Password">
+                            </div>
+                        </div>
+                       <button type="submit" class="btn btn-primary mb-5" [disabled]="!userForm.form.valid" required class="btn btn-info">Submit</button>
+                    </div>
+                 </form>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,29 @@
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+
+        <div class="container">
+            <div><a routerLink="/home" class="navbar-brand">Webify</a></div>
+
+            <ul class="navbar-nav">
+
+                <!-- <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/" class="nav-link">Dashboard</a>
+                </li>
+                <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/addemployee" class="nav-link">Add New
+                        Employee</a></li>
+                <li><a *ngIf="!authenticationService.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a>
+                </li>
+                <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/logout" class="nav-link">LogOut</a>
+                </li> -->
+                <li class="list-inline-item"><a *ngIf="userService.isUserLoggedIn()" routerLink="/dashboard" class="nav-link">Dasboard</a></li>
+                <li class="list-inline-item"><a *ngIf="userService.isUserLoggedIn()" routerLink="/profile" class="nav-link">Profile</a></li>
+                <li class="list-inline-item"><a *ngIf="userService.isUserLoggedIn()" routerLink="/courses" class="nav-link">Courses</a></li>
+                <li class="list-inline-item"><a *ngIf="userService.isUserLoggedIn()" routerLink="/logout" class="nav-link">Logout</a></li>
+                <li class="list-inline-item"><a *ngIf="!userService.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a></li>
+                <li class="list-inline-item"><a *ngIf="!userService.isUserLoggedIn()" routerLink="/register" class="nav-link">Register</a></li>
+
+
+            </ul>
+        </div>
+    </nav>
+
+</header>

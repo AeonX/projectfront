@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { ModuleService } from 'src/app/service/module.service';
-import { Module } from 'src/app/model/module';
-import { min } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { courseDto, moduleDto } from 'src/app/model/backend.model';
 
 @Component({
   selector: 'app-courseEditor',
@@ -14,7 +14,7 @@ export class CourseEditorComponent implements OnInit {
   removeIcon: boolean = true;
   addSection: boolean = false;
   addAccordion: boolean = false;
-  sections: any[] = [];
+  modules: any[] = [];
   titles: any[] = [];
 
   moduleName: string;
@@ -22,13 +22,26 @@ export class CourseEditorComponent implements OnInit {
   description: string;
   createModuleForm: FormGroup;
 
-  module: Module;
+  module: moduleDto = {
+    module_id: null,
+    module_name: null,
+    module_code: null,
+    description: null,
+    courseEntity: null
+  }
 
-  constructor( private moduleService: ModuleService) {
-    this.module = new Module();
-   }
+  constructor(private moduleService: ModuleService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
+
+    this.moduleService.findAllModules().subscribe(result => {
+      result.filter(res => {
+        if (parseInt(this.route.snapshot.paramMap.get('course_id')) == res.courseEntity.course_id) {
+          this.modules.push(res);
+        }
+      })
+    })
 
     this.createModuleForm = new FormGroup({
       moduleName: new FormControl(),
@@ -37,20 +50,9 @@ export class CourseEditorComponent implements OnInit {
     })
   }
 
-  
-  
-
-
   add() {
-    let data: any = {
-      ouLetter: 'test',
-      noEmployees: false,
-      salarySuvaEmployees: null,
-      id: null,
-      version: null,
-      salarySuvaId: null
-  }
-  this.sections.push(data);
+
+    this.modules.push(this.module);
   }
 
   addTitle() {
@@ -62,17 +64,17 @@ export class CourseEditorComponent implements OnInit {
   }
 
   onClick() {
-  this.module = {
-    id: null,
-    module_name: this.createModuleForm.value.moduleName,
-    module_code: this.createModuleForm.value.moduleCode,
-    description: this.createModuleForm.value.description,
-    // img_url: ,
-    course_id: null
-  }
-  
-  this.moduleService.save(this.module).subscribe(result => {});
-  this.sections.push(this.module);
+    this.module = {
+      module_id: null,
+      module_name: this.createModuleForm.value.moduleName,
+      module_code: this.createModuleForm.value.moduleCode,
+      description: this.createModuleForm.value.description,
+      // img_url: ,
+      courseEntity: null
+    }
+
+    this.moduleService.save(this.module).subscribe(result => { });
+    this.modules.push(this.module);
   }
 
 }

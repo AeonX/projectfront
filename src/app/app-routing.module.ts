@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuardService] },
   { path: 'login', component: LoginComponent},
   { path: 'courses', component: CoursesComponent, canActivate:[AuthGuardService] },
-  { path: 'courseEditor', component: CourseEditorComponent, canActivate:[AuthGuardService] },
+  { path: 'courseEditor/:course_id', component: CourseEditorComponent, canActivate:[AuthGuardService] },
   { path: 'profile', component: ProfileComponent, canActivate:[AuthGuardService] },
   { path: 'home', component: HomeComponent},
   { path: 'upload', component: UploadComponent},

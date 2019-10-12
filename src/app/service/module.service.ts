@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Module } from '../model/module';
+import { moduleDto } from '../model/backend.model';
 
 @Injectable({
     providedIn: 'root'
@@ -16,13 +16,13 @@ export class ModuleService {
         this.moduleUrl = 'http://localhost:8085/project/modules';
     }
 
-    public findAllModules(): Observable<Module[]> {
+    public findAllModules(): Observable<moduleDto[]> {
         const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(this.username + ':' + this.pwd) });
-        return this.http.get<Module[]>(this.moduleUrl, {headers});
+        return this.http.get<moduleDto[]>(this.moduleUrl, {headers});
     }
 
-    public save(module: Module) {
+    public save(module: moduleDto) {
         const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(this.username + ':' + this.pwd) });
-        return this.http.post<Module>(this.moduleUrl, module, {headers});
+        return this.http.post<moduleDto>(this.moduleUrl, module, {headers});
       }
 }

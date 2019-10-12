@@ -12,9 +12,17 @@ export interface UserDtos {
 }
 
 export interface courseDto {
-    id: number;
+    course_id: number;
     coursename: string;
     description: string;
     img_url: string;
     userEntity: UserDtos;
+}
+
+export interface moduleDto {
+    module_id: number;
+    module_name: string;
+    module_code: string;
+    description: string;
+    courseEntity: courseDto;
 }

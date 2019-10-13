@@ -50,11 +50,6 @@ export class CourseEditorComponent implements OnInit {
     })
   }
 
-  add() {
-
-    this.modules.push(this.module);
-  }
-
   addTitle() {
     let title: any = {
       id: null,
@@ -70,7 +65,13 @@ export class CourseEditorComponent implements OnInit {
       module_code: this.createModuleForm.value.moduleCode,
       description: this.createModuleForm.value.description,
       // img_url: ,
-      courseEntity: null
+      courseEntity: {
+        course_id: parseInt(this.route.snapshot.paramMap.get('course_id')),
+        coursename: null,
+        description: null,
+        img_url: null,
+        userEntity: null
+      }
     }
 
     this.moduleService.save(this.module).subscribe(result => { });

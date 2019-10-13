@@ -23,6 +23,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import {ProgressBarModule} from "angular-progress-bar";
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {ProgressBarModule} from "angular-progress-bar";
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    ProgressBarModule
+    ProgressBarModule,
+    AngularFontAwesomeModule
   ],
   providers: [
     UserService

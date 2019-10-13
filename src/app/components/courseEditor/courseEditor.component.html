@@ -8,43 +8,57 @@
                 module</button>
         </div>
     </div>
+
+
     <div class="row">
 
-        <div class="accordion mt-5" id="accordionExample" *ngFor="let module of modules;" style="width: 100%;">
+
+        <!-- start of accordion -->
+        <div id="accordion" class="myaccordion" *ngFor="let module of modules; let i = index;">
+           <div class="col-12">
             <div class="card">
-                <div class="card-header" id="headingOne" style="border-bottom: 1px solid #bbb">
-                    <h2 class="mb-0">
+                <div class="card-header" id="headingOne">
+                  <h2 class="mb-0">
 
-                        <div class="row">
-                            <div class="col-3">
-                                <button class="btn btn-link" type="button" data-toggle="collapse"
-                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Week 1
-                                </button>
-                            </div>
-                            <div class="col-4">
-                                <button class="btn btn-primary mr-3" (click)="addTitle()">Add Title</button>
-                                <button class="btn btn-primary">Save</button>
-                            </div>
+                    <div class="row">
+                        <div class="col-9">
+                                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        {{module.module_name}}
+                                        <span class="fa-stack fa-sm">
+                                          <i class="fas fa-circle fa-stack-2x"></i>
+                                          <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                        
+                                      </button>
                         </div>
-                    </h2>
-                </div>
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                    data-parent="#accordionExample">
-                    <div class="card card-body">
-                        <div *ngFor="let title of titles">
-                            <input type="text" class="mb-2 input-size mr-3">
+                        <div class="col-3">
+                                <a (click)="addTitle()" style="background: lime; font-size: 16px;" class="mr-2">Add Title</a>
+                                <a href="#" style="background: lime; font-size: 16px;">Save</a>
                         </div>
-
                     </div>
+                   
+
+                    
+                    
+                  </h2>
                 </div>
-            </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+                    <ul>
+                      <li *ngFor="let title of titles"><input type="text" style="list-style-type:none"></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+           </div>
+          </div>
+          <!-- end of accordion -->
 
-        </div>
+
     </div>
-</div>
 
+
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -72,11 +86,6 @@
                         <input type="text" placeholder="Description" formControlName="description">
                     </div>
                 </form>
-
-
-
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

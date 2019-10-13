@@ -2,7 +2,7 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { ModuleService } from 'src/app/service/module.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { courseDto, moduleDto } from 'src/app/model/backend.model';
+import { courseDto, moduleDto, lectureDto } from 'src/app/model/backend.model';
 
 @Component({
   selector: 'app-courseEditor',
@@ -21,6 +21,7 @@ export class CourseEditorComponent implements OnInit {
   moduleCode: string;
   description: string;
   createModuleForm: FormGroup;
+  lectureName: string;
 
   module: moduleDto = {
     module_id: null,
@@ -28,6 +29,14 @@ export class CourseEditorComponent implements OnInit {
     module_code: null,
     description: null,
     courseEntity: null
+  }
+
+  lecture: lectureDto = {
+    lecture_id: null,
+    lecture_name: null,
+    description: null,
+    video_url: null,
+    moduleEntity: null
   }
 
   constructor(private moduleService: ModuleService, private route: ActivatedRoute) {
@@ -51,11 +60,24 @@ export class CourseEditorComponent implements OnInit {
   }
 
   addTitle() {
-    let title: any = {
-      id: null,
-      text: 'test'
+    this.lecture = {
+      lecture_id: null,
+      lecture_name: null,
+      description: null,
+      video_url: null,
+      moduleEntity: {
+        module_id: null,
+        module_name: null,
+        module_code: null,
+        description: null,
+        courseEntity: null
+      }
     }
-    this.titles.push(title);
+    this.titles.push(this.lecture);
+  }
+
+  saveTitle() {
+    console.log(this.lectureName)
   }
 
   onClick() {

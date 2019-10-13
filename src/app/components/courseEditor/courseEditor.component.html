@@ -15,7 +15,7 @@
 
         <!-- start of accordion -->
         <div id="accordion" class="myaccordion" *ngFor="let module of modules; let i = index;">
-           <div class="col-12">
+           <div class="col-12" style="background-color: #dddddd">
             <div class="card">
                 <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
@@ -32,8 +32,8 @@
                                       </button>
                         </div>
                         <div class="col-3">
-                                <a (click)="addTitle()" style="background: lime; font-size: 16px;" class="mr-2">Add Title</a>
-                                <a href="#" style="background: lime; font-size: 16px;">Save</a>
+                                <a (click)="addTitle()" style="font-size: 16px;" class="mr-3">Add</a>
+                                <a style="font-size: 16px;" (click)="saveTitle()">Save</a>
                         </div>
                     </div>
                    
@@ -43,9 +43,14 @@
                   </h2>
                 </div>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                  <div class="card-body">
+                  <div class="card-body" style="background-color: #dddddd">
                     <ul>
-                      <li *ngFor="let title of titles"><input type="text" style="list-style-type:none"></li>
+                      <li *ngFor="let title of titles; let i = index;">
+                          <div>                          
+                                <input type="text" style="list-style-type:none;" [(ngModel)]="lectureName">
+                          </div>
+                          
+                        </li>
                     </ul>
                   </div>
                 </div>

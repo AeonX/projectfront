@@ -11,10 +11,9 @@ import { map } from 'rxjs/operators';
 export class CourseService {
   private username: string = sessionStorage.getItem('username');
   private pwd: string = sessionStorage.getItem('pwd');
-  private courseUrl: string;
+  private courseUrl: string = 'http://localhost:8085/project/courses';
 
   constructor(private http: HttpClient, private userService: UserService) {
-    this.courseUrl = 'http://localhost:8085/project/courses';
   }
 
   public findAllCourses(): Observable<courseDto[]> {

@@ -52,7 +52,7 @@
 
           <div class="form-group">
             <label for="imageUpload">Image Upload</label>
-            <input type="file" (change)="fileEvent($event)" name="imageUpload" id="imageUpload" value="dataFile" required="" />
+            <input type="file" (change)="fileEvent($event)" name="imageUpload" id="imageUpload" value="dataFile"/>
 
             {{this.imgSize}}
             <progress-bar [progress]="imgSize" [color]="'#488aff'">
@@ -61,7 +61,7 @@
 
 
           <button type="button" class="btn btn-secondary mr-5 ml-3" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="closeModal()" [disabled]="canSaveCourse !== 1">Save</button>
+          <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="closeModal()" [disabled]="canSaveCourse != 1">Save</button>
         </form>
 
       </div>

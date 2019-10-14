@@ -12,6 +12,8 @@ import { HomeComponent } from './components/home/home.component';
 import { UploadComponent } from './upload/upload.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { LogoutComponent } from './components/logout/logout.component';
+import { AddLectureComponent } from './components/add-lecture/add-lecture.component';
+import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
 
 
 const routes: Routes = [
@@ -26,7 +28,9 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate:[AuthGuardService] },
   { path: 'home', component: HomeComponent},
   { path: 'upload', component: UploadComponent},
-  { path: 'logout', component: LogoutComponent}
+  { path: 'logout', component: LogoutComponent},
+  { path: 'addLecture', component: AddLectureComponent},
+  { path: 'quizView', component: QuizViewComponent},
 ];
 
 @NgModule({

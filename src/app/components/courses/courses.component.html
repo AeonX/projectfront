@@ -10,14 +10,14 @@
 
     <div class="col-12">
       <div class="row">
-        <div class="col-md-4" *ngFor="let course of courses">
+        <div class="col-md-4" *ngFor="let course of courses; let index = index;">
           <div class="card mt-3" style="width: 18rem;">
             <img class="card-img-top" style="height:100%" src="{{course.img_url}}" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">{{course.coursename}}</h5>
               <p class="card-text">{{course.description}}</p>
               <a href="#" class="btn btn-primary mr-5">Enroll</a>
-              <a routerLink="/courseEditor" class="btn btn-primary">View Course</a>
+              <a [routerLink]="['/courseEditor', course.course_id]" class="btn btn-primary">View Course</a>
             </div>
           </div>
         </div>
@@ -25,6 +25,7 @@
     </div>
   </div>
 </div>
+
 
 <div class="modal fade" id="createCourseModal" tabindex="-1" role="dialog" aria-labelledby="createCourseModal"
   aria-hidden="true">
@@ -51,7 +52,7 @@
 
           <div class="form-group">
             <label for="imageUpload">Image Upload</label>
-            <input type="file" (change)="fileEvent($event)" name="imageUpload" id="imageUpload" value="dataFile" required="" />
+            <input type="file" (change)="fileEvent($event)" name="imageUpload" id="imageUpload" value="dataFile"/>
 
             {{this.imgSize}}
             <progress-bar [progress]="imgSize" [color]="'#488aff'">
@@ -60,7 +61,7 @@
 
 
           <button type="button" class="btn btn-secondary mr-5 ml-3" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="closeModal()" [disabled]="canSaveCourse !== 1">Save</button>
+          <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="closeModal()" [disabled]="canSaveCourse != 1">Save</button>
         </form>
 
       </div>

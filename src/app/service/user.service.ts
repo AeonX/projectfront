@@ -19,7 +19,7 @@ export class UserService {
   }
 
   public findLoggedInUserDetails(): Observable<UserDto[]>{
-    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(this.username + ':' + this.pwd) });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'Basic ' + btoa(this.username + ':' + this.pwd) });
     return this.http.get<UserDto[]>(this.usersUrl, {headers});
   }
 
@@ -28,7 +28,7 @@ export class UserService {
   }
 
   public authenticate(user: UserDto) {
-    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(user.username + ':' + user.pwd) });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'Basic ' + btoa(user.username + ':' + user.pwd) });
     return this.http.get<UserStatus>(this.validateLoginUrl, {headers}).pipe(
       map(
         userData => {

@@ -23,6 +23,12 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import {ProgressBarModule} from "angular-progress-bar";
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { AddLectureComponent } from './components/add-lecture/add-lecture.component';
+import { EmbedVideo } from 'ngx-embed-video';
+import { DisqusModule } from "ngx-disqus";
+import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
+import { QuizService } from './service/quiz.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +45,9 @@ import {ProgressBarModule} from "angular-progress-bar";
     UploadComponent,
     LogoutComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    AddLectureComponent,
+    QuizViewComponent
   ],
   imports: [
     BrowserModule,
@@ -50,10 +58,14 @@ import {ProgressBarModule} from "angular-progress-bar";
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    ProgressBarModule
+    ProgressBarModule,
+    AngularFontAwesomeModule,
+    EmbedVideo.forRoot(),
+    DisqusModule.forRoot('webify')
   ],
   providers: [
-    UserService
+    UserService,
+    QuizService
   ],
   bootstrap: [AppComponent]
 })

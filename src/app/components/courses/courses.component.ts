@@ -1,10 +1,11 @@
-import { Component, OnInit, ElementRef, ViewChild, Input, NgZone, OnChanges } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input, NgZone, OnChanges, SimpleChanges, DoCheck } from '@angular/core';
 import { CourseService } from 'src/app/service/course.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as AWS from 'aws-sdk';
-import { UserService } from 'src/app/service/user.service';
 import { courseDto, UserDtos } from 'src/app/model/backend.model';
+
+declare var $: any;
 
 @Component({
   selector: 'app-courses',
@@ -12,13 +13,12 @@ import { courseDto, UserDtos } from 'src/app/model/backend.model';
   styleUrls: ['./courses.component.scss']
 })
 
-export class CoursesComponent implements OnInit,OnChanges {
+export class CoursesComponent implements OnInit, OnChanges {
 
   courseForm: FormGroup;
   courses: any[] = [];
   isDropOver: boolean;
   isCreateCourse: boolean = false;
-  userId: number = 1;
   error: string;
   image: any;
   user = sessionStorage.getItem('username');
@@ -28,7 +28,7 @@ export class CoursesComponent implements OnInit,OnChanges {
   canSaveCourse: number = 0;
 
   course: courseDto = {
-    id: null,
+    course_id: null,
     coursename: null,
     description: null,
     img_url: null,
@@ -39,27 +39,30 @@ export class CoursesComponent implements OnInit,OnChanges {
     user_id: parseInt(sessionStorage.getItem('user_id'))
   }
 
-  constructor(private router: Router, private courseService: CourseService, private userService: UserService) {
+  constructor(private router: Router, private courseService: CourseService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.courseService.findAllCourses().subscribe(courses => {
       courses.filter(result => {
         if (this.userDto.user_id === result.userEntity.user_id) {
+          console.log(result)
           this.courses.push(result);
         }
       })
     });
 
     this.courseForm = new FormGroup({
-      coursename: new FormControl('Please enter a course name.', [Validators.required]),
-      description: new FormControl('Please enter a description.', [Validators.required])
+      coursename: new FormControl(),
+      description: new FormControl()
     });
   }
 
-  ngOnChanges(): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes + ' cahnges')
+  }
 
-  onSubmit(): void {}
+  onSubmit(): void { }
 
   closeModal() {
     //prepare data
@@ -68,14 +71,28 @@ export class CoursesComponent implements OnInit,OnChanges {
     this.course.userEntity = {
       user_id: this.userDto.user_id
     }
-    this.courseService.save(this.course).subscribe(result => { });
 
-    
-    this.gotoUserList();
+    this.courseService.save(this.course).subscribe(result => {
+
+      this.courseService.findAllCourses().subscribe(courses => {
+
+        //empty array before getting new result
+        this.courses = [];
+        courses.filter(result => {
+          if (this.userDto.user_id === result.userEntity.user_id) {
+            this.courses.push(result);
+          }
+        })
+      });
+    });
+
+    console.log($)
+    $("#courseForm").trigger("reset");
+
   }
 
   gotoUserList() {
-    this.router.navigate(['/createModule']);
+    this.router.navigate(['/courseEditor']);
   }
 
   onClickCreateCourse(): void {
@@ -117,6 +134,7 @@ export class CoursesComponent implements OnInit,OnChanges {
       this.imgSize = 100;
       //change canSaveCourse to 1 when image is uploaded to be able to save 
       this.canSaveCourse = 1;
+      console.log(this.canSaveCourse)
     })
   }
 

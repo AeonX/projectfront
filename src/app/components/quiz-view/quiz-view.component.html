@@ -1,0 +1,23 @@
+<div class="container">
+    
+<!-- Display the current question -->
+
+<h2>{{ question?.category }}</h2>
+<h4>{{ question?.question }}</h4>
+
+<!-- Create a form for the answers -->
+
+<form novalidate [formGroup]="form">
+	<ng-container *ngFor="let answer of question?.answers">
+
+    <!-- 
+
+      3. bind your answers to a click event : when the user clicks on an answer, store it in the list of answers in the service, and navigate to the next question. This is all done automatically thanks to the service : the question (and its answers) comes from the service, the current question comes from the service, the answers are stored in the service. 
+
+      Go to quiz.service.ts
+
+    -->
+		<input type="radio" formControlName="answer" name="answer" [value]="answer" (click)="quiz.validate(answer); router.navigate(['/question', quiz.questionId + 1])"> {{ answer }}<br/>
+	</ng-container>
+</form>
+</div>

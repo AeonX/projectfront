@@ -30,6 +30,8 @@ import { DisqusModule } from "ngx-disqus";
 import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
 import { QuizService } from './service/quiz.service';
 import { CourseBlockComponent } from './components/courseEditor/course-block/course-block.component';
+import { ChartsModule } from 'ng2-charts';
+import { StatsComponent } from './components/stats/stats.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { CourseBlockComponent } from './components/courseEditor/course-block/cou
     HeaderComponent,
     AddLectureComponent,
     QuizViewComponent,
-    CourseBlockComponent
+    CourseBlockComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { CourseBlockComponent } from './components/courseEditor/course-block/cou
     ProgressBarModule,
     AngularFontAwesomeModule,
     EmbedVideo.forRoot(),
-    DisqusModule.forRoot('webify')
+    DisqusModule.forRoot('webify'),
+    ChartsModule
   ],
   providers: [
     UserService,

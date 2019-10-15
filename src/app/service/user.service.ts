@@ -11,7 +11,7 @@ export class UserService {
   private usersUrl: string;
   private validateLoginUrl: string = 'http://localhost:8085/project/validateLogin';
 
-  private username = sessionStorage.getItem('username');
+  private username = sessionStorage.getItem('user_name');
   private pwd = sessionStorage.getItem('pwd');
 
   constructor(private http: HttpClient) {
@@ -27,13 +27,13 @@ export class UserService {
     return this.http.post<UserDto>(this.usersUrl, user);
   }
 
-  public authenticate(user: UserDto) {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'Basic ' + btoa(user.username + ':' + user.pwd) });
+  public authenticate(username, password) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'Basic ' + btoa(username + ':' + password) });
     return this.http.get<UserStatus>(this.validateLoginUrl, {headers}).pipe(
       map(
         userData => {
-        sessionStorage.setItem('username',user.username);
-        sessionStorage.setItem('pwd', user.pwd);
+        sessionStorage.setItem('user_name', username);
+        sessionStorage.setItem('pwd', password);
          return userData;
         }
       )
@@ -41,11 +41,11 @@ export class UserService {
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('username');
+    let user = sessionStorage.getItem('user_name');
     return !(user === null);
   }
 
   logOut() {
-    sessionStorage.removeItem('username');
+    sessionStorage.clear();
   }
 }

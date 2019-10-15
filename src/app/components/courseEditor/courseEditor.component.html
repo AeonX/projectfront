@@ -6,10 +6,10 @@
         <div class="d-flex justify-content-between">
             <button class="btn btn-primary mt-3 mb-4 mr-2" data-toggle="modal" data-target="#exampleModal">Create
                 module</button>
-                <button routerLink="/addLecture" class="btn btn-primary mt-3 mb-4 mr-2">Go to add lecture (temp)</button>
-                <button routerLink="/quizView" class="btn btn-primary mt-3 mb-4">Go to quiz view (temp)</button>
+            <button routerLink="/addLecture" class="btn btn-primary mt-3 mb-4 mr-2">Go to add lecture (temp)</button>
+            <button routerLink="/quizView" class="btn btn-primary mt-3 mb-4">Go to quiz view (temp)</button>
         </div>
-        
+
     </div>
 
 
@@ -18,50 +18,7 @@
 
         <!-- start of accordion -->
         <div id="accordion" class="myaccordion" *ngFor="let module of modules; let i = index;">
-            <div class="col-12" style="background-color: #dddddd">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h2 class="mb-0">
-
-                            <div class="row">
-                                <div class="col-9">
-                                    <button
-                                        class="d-flex align-items-center justify-content-between btn btn-link collapsed"
-                                        data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
-                                        aria-controls="collapseOne">
-                                        {{module.module_name}}
-                                        <span class="fa-stack fa-sm">
-                                            <i class="fas fa-circle fa-stack-2x"></i>
-                                            <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
-                                        </span>
-
-                                    </button>
-                                </div>
-                                <div class="col-3">
-                                    <a (click)="addTitle()" style="font-size: 16px;" class="mr-3">Add</a>
-                                    <a style="font-size: 16px;" (click)="saveTitle()">Save</a>
-                                </div>
-                            </div>
-
-
-
-
-                        </h2>
-                    </div>
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body" style="background-color: #dddddd">
-                            <ul>
-                                <li *ngFor="let title of titles; let i = index;">
-                                    <div>
-                                        <input type="text" style="list-style-type:none;" [(ngModel)]="lectureName">
-                                    </div>
-
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <app-course-block [module]="module"></app-course-block>
         </div>
         <!-- end of accordion -->
 

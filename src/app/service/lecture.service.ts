@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 
 export class LectureService {
     private lectureUrl: string = 'http://localhost:8085/project/lectures';
-    private username: string = sessionStorage.getItem('username');
+    private username: string = sessionStorage.getItem('user_name');
     private pwd: string = sessionStorage.getItem('pwd');
 
     constructor(private http: HttpClient) {

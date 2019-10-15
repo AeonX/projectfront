@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, ViewChildren, ElementRef, QueryList } from '@angular/core';
 import { ModuleService } from 'src/app/service/module.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -15,7 +15,7 @@ export class CourseEditorComponent implements OnInit {
   addSection: boolean = false;
   addAccordion: boolean = false;
   modules: any[] = [];
-  titles: any[] = [];
+
 
   moduleName: string;
   moduleCode: string;
@@ -23,12 +23,14 @@ export class CourseEditorComponent implements OnInit {
   createModuleForm: FormGroup;
   lectureName: string;
 
+  @ViewChildren('moduleItem') moduleItem: QueryList<ElementRef>;
+
   module: moduleDto = {
     module_id: null,
     module_name: null,
     module_code: null,
     description: null,
-    courseEntity: null
+    course: null
   }
 
   lecture: lectureDto = {
@@ -36,7 +38,7 @@ export class CourseEditorComponent implements OnInit {
     lecture_name: null,
     description: null,
     video_url: null,
-    moduleEntity: null
+    module: null
   }
 
   constructor(private moduleService: ModuleService, private route: ActivatedRoute) {
@@ -44,9 +46,18 @@ export class CourseEditorComponent implements OnInit {
 
   ngOnInit() {
 
+    console.log(this.moduleItem);
+    
+    // this.moduleItem.toArray().forEach( el => {
+    //   console.log(el);
+    // })
+
+
+
     this.moduleService.findAllModules().subscribe(result => {
+      
       result.filter(res => {
-        if (parseInt(this.route.snapshot.paramMap.get('course_id')) == res.courseEntity.course_id) {
+        if (parseInt(this.route.snapshot.paramMap.get('course_id')) === res.course.course_id) {
           this.modules.push(res);
         }
       })
@@ -59,25 +70,9 @@ export class CourseEditorComponent implements OnInit {
     })
   }
 
-  addTitle() {
-    this.lecture = {
-      lecture_id: null,
-      lecture_name: null,
-      description: null,
-      video_url: null,
-      moduleEntity: {
-        module_id: null,
-        module_name: null,
-        module_code: null,
-        description: null,
-        courseEntity: null
-      }
-    }
-    this.titles.push(this.lecture);
-  }
+
 
   saveTitle() {
-    console.log(this.lectureName)
   }
 
   onClick() {
@@ -87,17 +82,17 @@ export class CourseEditorComponent implements OnInit {
       module_code: this.createModuleForm.value.moduleCode,
       description: this.createModuleForm.value.description,
       // img_url: ,
-      courseEntity: {
+      course: {
         course_id: parseInt(this.route.snapshot.paramMap.get('course_id')),
-        coursename: null,
+        course_name: null,
         description: null,
         img_url: null,
-        userEntity: null
+        user: {
+          user_id: null
+        }
       }
     }
-
     this.moduleService.save(this.module).subscribe(result => { });
     this.modules.push(this.module);
   }
-
 }

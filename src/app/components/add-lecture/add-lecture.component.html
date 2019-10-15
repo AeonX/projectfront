@@ -1,32 +1,28 @@
 <div class="container">
     <div class="row">
-        <h3 class="ml-3">How does Angular Routing works?</h3>
+        <h3 class="ml-md-3">How does Angular Routing works?</h3>
 
     </div>
 
     <div>
         <div class="row">
-            <div class="col-9">
-                <video width="800" height="400" controls>
-                    <source src="https://webify.s3.eu-central-1.amazonaws.com/SampleVideo_1280x720_2mb.mp4"
-                        type="video/mp4">
-                </video>
+            <div class="col-md-9">
+                <div *ngIf="selectedVideoLecture?.video_url">
+                    <video width="100%" height="100%" controls>
+                        <source [src]="selectedVideoLecture.video_url"
+                            type="video/mp4">
+                    </video>
+                </div>
             </div>
 
-            <div class="col-3" style="background-color: #ccc">
-                    <h5 class="m-3">Angular Fundamentals</h5>
-                    <div class="panel panel-default">
-                      <strong><div class="panel-heading ml-3">Section 1</div></strong>
-                      <div class="panel-body ml-3">What is angular?</div>
-                      <div class="panel-body ml-3">Why is it used?</div>
-                      <div class="panel-body ml-3">Setting up dev environment</div>
-                      <br>
+           <!--  {{selectedVideoLecture?.video_url | json}} -->
 
-                      <strong><div class="panel-heading ml-3">Section 2</div></strong>
-                      <div class="panel-body ml-3">What is 2 way binding?</div>
-                      <div class="panel-body ml-3">How routing works</div>
-                      <div class="panel-body ml-3">Passing data between components</div>
-                    </div>
+            <div class="col-md-3" style="background-color: #ccc"  >
+                    <h5 class="m-3"   *ngFor="let section of sections;">{{section.module_name}}</h5>
+                    <div class="panel panel-default">
+                      <strong><div class="panel-heading ml-3"></div></strong>
+                      <div class="panel-body ml-3" *ngFor=" let lecturePanel of lecturePanels"><span (click)="selectPanel(lecturePanel);">
+                          {{lecturePanel.lecture_name}}</span></div>
             </div>
         </div>
     </div>

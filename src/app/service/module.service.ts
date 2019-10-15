@@ -9,7 +9,7 @@ import { moduleDto } from '../model/backend.model';
 
 export class ModuleService {
     private moduleUrl: string;
-    private username: string = sessionStorage.getItem('username');
+    private username: string = sessionStorage.getItem('user_name');
     private pwd: string = sessionStorage.getItem('pwd');  
 
     constructor(private http: HttpClient) {

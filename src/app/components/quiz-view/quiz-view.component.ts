@@ -30,7 +30,6 @@ export class QuizViewComponent implements OnInit {
    this.route.paramMap.subscribe(params => {
     // Get the question ID and store it. 
     this.quiz.questionId = +params.get('questionId');
-    console.log(this.quiz.questionId);
 
     // If there is no more question, navigate to show the answers
     if(this.quiz.questionId > this.quiz.questions.length - 1) {

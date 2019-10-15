@@ -1,23 +1,21 @@
-<div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3 mb-5 mt-3">
-                <form style="border: 1px solid black" class="px-5 pt-3" (ngSubmit)="onSubmit()" #userForm="ngForm">
-                    <!-- Vertical -->
-                    <div class="form-group">
-    
-                        <h1 class="mb-5">Login</h1>
-    
-                        <div class="row">
-                            <div class="col-6">
-                                    <input type="username" name="username" id = "username" class="form-control mb-3" [(ngModel)]="user.username" required #username="ngModel" placeholder="Username">
-                            </div>
-                            <div class="col-6">
-                                    <input type="password" name="password" id="myPassword" class="form-control mb-3" [(ngModel)]="user.pwd" required #pwd="ngModel" placeholder="Password">
-                            </div>
-                        </div>
-                       <button type="submit" class="btn btn-primary mb-5" [disabled]="!userForm.form.valid" required class="btn btn-info">Submit</button>
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-lg-4 offset-lg-4 px-5 pt-5 pb-5" style="margin-top: 150px; border: 1px solid #333; border-radius: 5px;">
+                <h3>Login</h3>
+                <br />
+                <form (ngSubmit)='validateUser()' [formGroup]='loginForm' novalidate class="form">
+                    <input formControlName='user_name' type="text" class="form-control mb-2" placeholder="Enter username" />
+                    <div class="alert  alert-danger"
+                        *ngIf="loginForm.get('user_name').hasError('required') && loginForm.get('user_name').touched">
+                        Email is required
                     </div>
-                 </form>
-            </div>
+                    <input formControlName='password' type="password" class="form-control" placeholder="Enter Password" />
+                    <div class="alert  alert-danger"
+                        *ngIf=" !loginForm.get('password').valid && loginForm.get('email').touched">
+                        Password is required and should less than 10 characters
+                    </div>
+                    <button [disabled]='loginForm.invalid' class="btn btn-primary mt-3">Login</button>
+                </form>
         </div>
     </div>
+</div>

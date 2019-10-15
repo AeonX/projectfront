@@ -1,8 +1,8 @@
 export interface UserDto {
     user_id: number;
-    firstname: string;
-    lastname: string;
-    username: string;
+    first_name: string;
+    last_name: string;
+    user_name: string;
     email: string;
     pwd: string;
 }
@@ -13,10 +13,10 @@ export interface UserDtos {
 
 export interface courseDto {
     course_id: number;
-    coursename: string;
+    course_name: string;
     description: string;
     img_url: string;
-    userEntity: UserDtos;
+    user: UserDtos;
 }
 
 export interface moduleDto {
@@ -24,7 +24,7 @@ export interface moduleDto {
     module_name: string;
     module_code: string;
     description: string;
-    courseEntity: courseDto;
+    course: courseDto;
 }
 
 export interface lectureDto {
@@ -32,5 +32,5 @@ export interface lectureDto {
     lecture_name: string;
     description: string;
     video_url: string;
-    moduleEntity: moduleDto;
+    module: moduleDto;
 }

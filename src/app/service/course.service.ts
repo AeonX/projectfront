@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CourseService {
-  private username: string = sessionStorage.getItem('username');
+  private username: string = sessionStorage.getItem('user_name');
   private pwd: string = sessionStorage.getItem('pwd');
   private courseUrl: string = 'http://localhost:8085/project/courses';
 
@@ -27,7 +27,6 @@ export class CourseService {
       observe: 'response'
     });
     return this.http.post<courseDto>(this.courseUrl, course, {headers}).pipe(map((response: any) => {
-      console.log(response)
       return response;
     }))
   }

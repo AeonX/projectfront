@@ -29,6 +29,7 @@ import { EmbedVideo } from 'ngx-embed-video';
 import { DisqusModule } from "ngx-disqus";
 import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
 import { QuizService } from './service/quiz.service';
+import { CourseBlockComponent } from './components/courseEditor/course-block/course-block.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { QuizService } from './service/quiz.service';
     FooterComponent,
     HeaderComponent,
     AddLectureComponent,
-    QuizViewComponent
+    QuizViewComponent,
+    CourseBlockComponent
   ],
   imports: [
     BrowserModule,

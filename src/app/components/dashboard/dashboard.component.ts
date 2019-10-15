@@ -12,12 +12,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     //get username
-    let username = sessionStorage.getItem('username');
+    let username = sessionStorage.getItem('user_name');
     
     //filter users and save user_id in sessionStorage
     this.userService.findLoggedInUserDetails().subscribe( result => {
       result.filter(element => {
-        if(username === element.username) {
+        if(username === element.user_name) {
           sessionStorage.setItem('user_id', element.user_id.toString());
         }
       })

@@ -21,7 +21,8 @@ export class CoursesComponent implements OnInit, OnChanges {
   isCreateCourse: boolean = false;
   error: string;
   image: any;
-  user = sessionStorage.getItem('username');
+  user = sessionStorage.getItem('user_name');
+  user_id = sessionStorage.getItem('user_id');
   currentUser: any;
   isLoading: boolean = false;
   imgSize: number = 0;
@@ -29,14 +30,12 @@ export class CoursesComponent implements OnInit, OnChanges {
 
   course: courseDto = {
     course_id: null,
-    coursename: null,
+    course_name: null,
     description: null,
     img_url: null,
-    userEntity: null
-  }
-
-  userDto: UserDtos = {
-    user_id: parseInt(sessionStorage.getItem('user_id'))
+    user: {
+      user_id: null
+    }
   }
 
   constructor(private router: Router, private courseService: CourseService, private route: ActivatedRoute) {
@@ -44,9 +43,11 @@ export class CoursesComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.courseService.findAllCourses().subscribe(courses => {
+      console.log(this.user_id, 'one');
+      
       courses.filter(result => {
-        if (this.userDto.user_id === result.userEntity.user_id) {
-          console.log(result)
+        console.log('two', result.user.user_id);
+        if (parseInt(this.user_id) === result.user.user_id) {
           this.courses.push(result);
         }
       })
@@ -59,18 +60,15 @@ export class CoursesComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes + ' cahnges')
   }
 
   onSubmit(): void { }
 
   closeModal() {
     //prepare data
-    this.course.coursename = this.courseForm.value['coursename'];
+    this.course.course_name = this.courseForm.value['coursename'];
     this.course.description = this.courseForm.value['description'];
-    this.course.userEntity = {
-      user_id: this.userDto.user_id
-    }
+    this.course.user.user_id = parseInt(this.user_id);
 
     this.courseService.save(this.course).subscribe(result => {
 
@@ -79,16 +77,12 @@ export class CoursesComponent implements OnInit, OnChanges {
         //empty array before getting new result
         this.courses = [];
         courses.filter(result => {
-          if (this.userDto.user_id === result.userEntity.user_id) {
+          if (parseInt(this.user_id) === result.user.user_id) {
             this.courses.push(result);
           }
         })
       });
     });
-
-    console.log($)
-    $("#courseForm").trigger("reset");
-
   }
 
   gotoUserList() {
@@ -134,7 +128,6 @@ export class CoursesComponent implements OnInit, OnChanges {
       this.imgSize = 100;
       //change canSaveCourse to 1 when image is uploaded to be able to save 
       this.canSaveCourse = 1;
-      console.log(this.canSaveCourse)
     })
   }
 

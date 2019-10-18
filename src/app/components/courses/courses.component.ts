@@ -32,6 +32,7 @@ export class CoursesComponent implements OnInit, OnChanges {
     course_id: null,
     course_name: null,
     description: null,
+    created_on: null,
     img_url: null,
     user: {
       user_id: null

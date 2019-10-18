@@ -3,6 +3,7 @@ import { ModuleService } from 'src/app/service/module.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { courseDto, moduleDto, lectureDto } from 'src/app/model/backend.model';
+import { LectureService } from 'src/app/service/lecture.service';
 
 @Component({
   selector: 'app-courseEditor',
@@ -38,10 +39,11 @@ export class CourseEditorComponent implements OnInit {
     lecture_name: null,
     description: null,
     video_url: null,
-    module: null
+    module: null,
+    courseLecture: null
   }
 
-  constructor(private moduleService: ModuleService, private route: ActivatedRoute) {
+  constructor(private moduleService: ModuleService, private route: ActivatedRoute, private lectureService: LectureService) {
   }
 
   ngOnInit() {
@@ -86,6 +88,7 @@ export class CourseEditorComponent implements OnInit {
         course_id: parseInt(this.route.snapshot.paramMap.get('course_id')),
         course_name: null,
         description: null,
+        created_on: null,
         img_url: null,
         user: {
           user_id: null

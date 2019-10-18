@@ -15,6 +15,7 @@ export interface courseDto {
     course_id: number;
     course_name: string;
     description: string;
+    created_on: string;
     img_url: string;
     user: UserDtos;
 }
@@ -33,4 +34,5 @@ export interface lectureDto {
     description: string;
     video_url: string;
     module: moduleDto;
+    courseLecture: courseDto;
 }

@@ -32,6 +32,8 @@ import { QuizService } from './service/quiz.service';
 import { CourseBlockComponent } from './components/courseEditor/course-block/course-block.component';
 import { ChartsModule } from 'ng2-charts';
 import { StatsComponent } from './components/stats/stats.component';
+import { AddLectureComponent } from './components/add-lecture/add-lecture.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import { StatsComponent } from './components/stats/stats.component';
     ViewLectureComponent,
     QuizViewComponent,
     CourseBlockComponent,
-    StatsComponent
+    StatsComponent,
+    AddLectureComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { StatsComponent } from './components/stats/stats.component';
     AngularFontAwesomeModule,
     EmbedVideo.forRoot(),
     DisqusModule.forRoot('webify'),
-    ChartsModule
+    ChartsModule,
+    EditorModule
   ],
   providers: [
     UserService,

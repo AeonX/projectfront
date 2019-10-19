@@ -12,7 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UploadComponent } from './upload/upload.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { LogoutComponent } from './components/logout/logout.component';
-import { AddLectureComponent } from './components/add-lecture/add-lecture.component';
+import { ViewLectureComponent } from './components/view-lecture/view-lecture.component';
 import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
 import { StatsComponent } from './components/stats/stats.component';
 
@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'upload', component: UploadComponent},
   { path: 'logout', component: LogoutComponent},
-  { path: 'addLecture', component: AddLectureComponent},
+  { path: 'viewLecture', component: ViewLectureComponent},
   { path: 'quizView', component: QuizViewComponent},
   { path: 'stats', component: StatsComponent},
 ];

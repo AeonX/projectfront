@@ -1,45 +1,40 @@
 <div class="col-12" style="background-color: #dddddd">
-        <div class="card">
-            <div class="card-header" id="headingOne">
-                <h2 class="mb-0">
-
-                    <div class="row">
-                        <div class="col-9">
-                            <button
-                                class="d-flex align-items-center justify-content-between btn btn-link collapsed"
-                                data-toggle="collapse" [attr.data-target]="'#collapse' + i"
-                                aria-expanded="false" aria-controls="collapseOne">
-                                <p #moduleItem>{{module.module_name}}</p>
-                                <span class="fa-stack fa-sm">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
-                                </span>
-
-                            </button>
-                        </div>
-                        <div class="col-3">
-                            <a (click)="addTitle(i)" style="font-size: 16px;" class="mr-3">Add</a>
-                            <a style="font-size: 16px;" (click)="saveTitle()">Save</a>
-                        </div>
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <div class="row">
+                    <div class="col-9">
+                        <button class="d-flex align-items-center justify-content-between btn btn-link collapsed"
+                            data-toggle="collapse" [attr.data-target]="'#collapse' + i" aria-expanded="false"
+                            aria-controls="collapseOne">
+                            <p #moduleItem>{{module.module_name}}</p>
+                            <span class="fa-stack fa-sm">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </button>
                     </div>
-
-
-
-
-                </h2>
-            </div>
-            <div [attr.id]="'collapse' + i" class="collapse" aria-labelledby="headingOne"
-                data-parent="#accordion">
-                <div class="card-body" style="background-color: #dddddd">
-                    <ul>
-                        <li *ngFor="let title of titles; let i = index;">
-                            <div>
-                                <input type="text" style="list-style-type:none;" [(ngModel)]="title.lecture_name">
-                            </div>
-
-                        </li>
-                    </ul>
+                    <div class="col-3">
+                        <a (click)="addTitle(module.module_id)" style="font-size: 16px;" class="mr-3">Add</a>
+                        <a style="font-size: 16px;" (click)="saveTitle()">Save</a>
+                    </div>
                 </div>
+            </h2>
+        </div>
+        <div [attr.id]="'collapse' + i" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body" style="background-color: #dddddd">
+
+                <ul>
+                    <div *ngFor="let showTitle of showTitles">
+                        <a [routerLink]="['/viewLecture', showTitle.lecture_id]">{{showTitle.lecture_name}}</a>
+                    </div>
+                    <li *ngFor="let title of titles; let i = index;" style="list-style-type: none;">
+                        <div>
+                            <input type="text" [(ngModel)]="title.lecture_name">
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+</div>

@@ -6,7 +6,7 @@
         <div class="d-flex justify-content-between">
             <button class="btn btn-primary mt-3 mb-4 mr-2" data-toggle="modal" data-target="#exampleModal">Create
                 module</button>
-            <button routerLink="/addLecture" class="btn btn-primary mt-3 mb-4 mr-2">Go to add lecture (temp)</button>
+            <button routerLink="/viewLecture" class="btn btn-primary mt-3 mb-4 mr-2">Go to add lecture (temp)</button>
             <button routerLink="/quizView" class="btn btn-primary mt-3 mb-4">Go to quiz view (temp)</button>
         </div>
 
@@ -18,7 +18,7 @@
 
         <!-- start of accordion -->
         <div id="accordion" class="myaccordion" *ngFor="let module of modules; let i = index;">
-                <app-course-block [module]="module"></app-course-block>
+                <app-course-block [module]="module" [i]="i"></app-course-block>
         </div>
         <!-- end of accordion -->
 

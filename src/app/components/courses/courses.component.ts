@@ -40,14 +40,13 @@ export class CoursesComponent implements OnInit, OnChanges {
   }
 
   constructor(private router: Router, private courseService: CourseService, private route: ActivatedRoute) {
+    console.log('cons');
   }
 
   ngOnInit() {
     this.courseService.findAllCourses().subscribe(courses => {
-      console.log(this.user_id, 'one');
       
       courses.filter(result => {
-        console.log('two', result.user.user_id);
         if (parseInt(this.user_id) === result.user.user_id) {
           this.courses.push(result);
         }

@@ -26,7 +26,7 @@
 
                 <ul>
                     <div *ngFor="let showTitle of showTitles">
-                        <a [routerLink]="['/viewLecture', showTitle.lecture_id]">{{showTitle.lecture_name}}</a>
+                        <a [routerLink]="['/addLecture', showTitle.lecture_id]">{{showTitle.lecture_name}}</a>
                     </div>
                     <li *ngFor="let title of titles; let i = index;" style="list-style-type: none;">
                         <div>

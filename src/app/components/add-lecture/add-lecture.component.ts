@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
 export class AddLectureComponent implements OnInit {
 
   video_url: string = "";
-  hasVideoUrl: boolean = false;
+  hasVideoUrl: boolean = true;
   isLoading: boolean;
   image: any;
   imgSize: number;
@@ -54,28 +54,22 @@ export class AddLectureComponent implements OnInit {
     this.lectureService.findAllLectures().subscribe(result => {
       result.forEach(element => {
         if (element.lecture_id === current_id) {
-
           this.currentLecture = element;
-          
-          if(this.currentLecture.description !== "") {
+          console.log(this.currentLecture.description);
+          if (this.currentLecture.description !== null) {
             this.addDescription = true;
             this.saveDescription = this.currentLecture.description;
           }
+          
+          if (this.currentLecture.video_url !== "") {
+            this.hasVideoUrl = true;
+            this.video_url = this.currentLecture.video_url;
+          }
         }
-      })
-
-    })
-
-
-
+      });
+    });
     this.lectureForm = new FormGroup({
     });
-
-
-
-    // if(this.currentLecture !== "") {
-    //   this.addDescription = true;
-    // }
   }
 
   addVideoUrl() {

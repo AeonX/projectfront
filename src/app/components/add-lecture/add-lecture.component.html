@@ -1,5 +1,5 @@
-<div class="container mt-5">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mt-5" style="margin-top: 100px!important;">
+<div class="container mt-2">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mt-5 mb-5" style="margin-top: 30px!important;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -10,31 +10,45 @@
                     <button class="nav-link btn" data-toggle="modal" data-target="#addVideoUrl">Add a video</button>
                 </li>
                 <li class="nav-item">
-                   <button class="btn nav-link" (click)="addText()">
-                       Add Description
-                   </button>
+                    <button class="btn nav-link" (click)="addText()">
+                        Add Description
+                    </button>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class="row" *ngIf="lecture.video_url">
-        <video width="100%" height="100%" controls>
-            <source [src]="video_url" type="video/mp4">
-        </video>
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="row mb-5" *ngIf="video_url">
+                <video width="100%" height="100%" controls>
+                    <source [src]="video_url" type="video/mp4">
+                </video>
+            </div>
+        </div>
     </div>
 
-    <div *ngIf="addDescription">
-        <editor apiKey="c88cdx4wu2e6dy0g6uxcqdx07xlne7g6cqmc38nkvlalq3hn" [init]="{plugins: 'link'}"
-            [(ngModel)]="saveDescription"></editor>
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
 
-        <button class="btn btn-success mt-3" (click)="saveText()">
-            Save Description
-        </button>
+            <div *ngIf="addDescription" class="mb-5">
+                <editor apiKey="c88cdx4wu2e6dy0g6uxcqdx07xlne7g6cqmc38nkvlalq3hn" [init]="{plugins: 'link'}"
+                    [(ngModel)]="saveDescription"></editor>
+
+                <button class="btn btn-success mt-3" (click)="saveText()">
+                    Save Description
+                </button>
+            </div>
+        </div>
     </div>
 
 
 </div>
+
+
+
+
+
 
 
 

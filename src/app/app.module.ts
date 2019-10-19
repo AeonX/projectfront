@@ -34,6 +34,7 @@ import { ChartsModule } from 'ng2-charts';
 import { StatsComponent } from './components/stats/stats.component';
 import { AddLectureComponent } from './components/add-lecture/add-lecture.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import {Ng8BreadcrumbModule} from 'ng8-breadcrumb';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,10 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     EmbedVideo.forRoot(),
     DisqusModule.forRoot('webify'),
     ChartsModule,
-    EditorModule
+    EditorModule,
+    Ng8BreadcrumbModule.forRoot({
+      prefix: 'home'
+  }),
   ],
   providers: [
     UserService,

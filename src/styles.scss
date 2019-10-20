@@ -5,3 +5,19 @@ router-outlet ~ * {
     height: 100%;
     width: 100%;
   }
+
+h2 {
+  color: #DC3545!important;
+}
+
+.breadcrumb {
+  background: #DC3545!important;
+}
+
+.breadcrumb-item.active {
+  color: #fff!important;
+}
+
+a {
+  color: #fff!important;
+}

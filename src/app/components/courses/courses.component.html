@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-2 offset-10">
       <div class="d-flex justify-content-end">
-        <button class="btn btn-primary mr-5" data-toggle="modal" data-target="#createCourseModal"
+        <button class="btn btn-danger mr-5" data-toggle="modal" data-target="#createCourseModal"
           (click)="onClickCreateCourse()">Create course</button>
       </div>
     </div>
@@ -13,13 +13,13 @@
     <div class="col-12">
       <div class="row">
         <div class="col-md-4" *ngFor="let course of courses; let index = index;">
-          <div class="card mt-3" style="width: 18rem;">
+          <div class="card mt-3" style="">
             <img class="card-img-top" style="height:100%" src="{{course.img_url}}" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">{{course.course_name}}</h5>
               <p class="card-text">{{course.description}}</p>
-              <a href="#" class="btn btn-primary mr-5">Enroll</a>
-              <a [routerLink]="['/courseEditor', course.course_id]" class="btn btn-primary">View Course</a>
+              <a href="#" class="btn btn-danger mr-5">Enroll</a>
+              <a [routerLink]="['/courseEditor', course.course_id]" class="btn btn-danger">View Course</a>
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@
 
 
           <button type="button" class="btn btn-secondary mr-5 ml-3" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="closeModal()" [disabled]="canSaveCourse != 1">Save</button>
+          <button type="submit" class="btn btn-danger" data-dismiss="modal" (click)="closeModal()" [disabled]="canSaveCourse != 1">Save</button>
         </form>
 
       </div>

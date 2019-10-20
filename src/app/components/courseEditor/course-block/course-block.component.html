@@ -1,20 +1,20 @@
-<div class="col-12" style="background-color: #dddddd">
+<div class="col-12" style="">
     <div class="card">
-        <div class="card-header" id="headingOne">
+        <div class="card-header" id="headingOne" style="background:#c0392b">
             <h2 class="mb-0">
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-lg-9">
                         <button class="d-flex align-items-center justify-content-between btn btn-link collapsed"
                             data-toggle="collapse" [attr.data-target]="'#collapse' + i" aria-expanded="false"
                             aria-controls="collapseOne">
-                            <p #moduleItem>{{module.module_name}}</p>
-                            <span class="fa-stack fa-sm">
+                            <p #moduleItem style="color: #fff">{{module.module_name}}</p>
+                            <!-- <span class="fa-stack fa-sm">
                                 <i class="fas fa-circle fa-stack-2x"></i>
                                 <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
-                            </span>
+                            </span> -->
                         </button>
                     </div>
-                    <div class="col-3">
+                    <div class="col-lg-2 offset-lg-1">
                         <a (click)="addTitle(module.module_id)" style="font-size: 16px;" class="mr-3">Add</a>
                         <a style="font-size: 16px;" (click)="saveTitle()">Save</a>
                     </div>
@@ -22,7 +22,7 @@
             </h2>
         </div>
         <div [attr.id]="'collapse' + i" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body" style="background-color: #dddddd">
+            <div class="card-body" style="background-color: #DC3545">
 
                 <ul>
                     <div *ngFor="let showTitle of showTitles">

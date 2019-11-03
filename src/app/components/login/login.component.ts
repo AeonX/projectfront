@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   }
 
   validateUser() {
-
     this.userService.authenticate(this.loginForm.value.user_name, this.loginForm.value.password).subscribe(result => {
       //check if credentials entered === data retrieved from database
       if (result) {
@@ -43,6 +42,13 @@ export class LoginComponent implements OnInit {
               sessionStorage.setItem('user_id', user.user_id.toString());
             }
           })
+        })
+
+        this.userService.findLoggedInUserDetails().subscribe(user => {
+          let details = user.filter(role => {
+            return this.loginForm.value.user_name === role.user_name;
+          })
+          sessionStorage.setItem('role_id', details[0].role.role_id.toString())
         })
 
 

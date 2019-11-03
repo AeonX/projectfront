@@ -23,6 +23,7 @@ export class CoursesComponent implements OnInit, OnChanges {
   image: any;
   user = sessionStorage.getItem('user_name');
   user_id = sessionStorage.getItem('user_id');
+  role_id = parseInt(sessionStorage.getItem('user_id'));
   currentUser: any;
   isLoading: boolean = false;
   imgSize: number = 0;

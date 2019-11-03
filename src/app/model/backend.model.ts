@@ -1,3 +1,8 @@
+export interface RoleDto {
+    role_id: number,
+    role_name: string;
+}
+
 export interface UserDto {
     user_id: number;
     first_name: string;
@@ -5,6 +10,7 @@ export interface UserDto {
     user_name: string;
     email: string;
     pwd: string;
+    role: RoleDto;
 }
 
 export interface UserDtos {

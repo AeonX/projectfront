@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { lectureDto } from 'src/app/model/backend.model';
 import { LectureService } from 'src/app/service/lecture.service';
 
@@ -10,7 +10,9 @@ import { LectureService } from 'src/app/service/lecture.service';
 export class CourseBlockComponent implements OnInit {
 
   @Input() module;
+  @Input() i;
   titles: any[] = [];
+  showTitles: any[] = [];
 
   lecture: lectureDto = {
     lecture_id: null,
@@ -20,17 +22,24 @@ export class CourseBlockComponent implements OnInit {
     module: null,
     courseLecture: {
       course_id: null,
-        course_name: null,
-        created_on: null,
-        description: null,
-        img_url: null,
-        user: null
+      course_name: null,
+      created_on: null,
+      description: null,
+      img_url: null,
+      user: null
     }
   }
 
   constructor(private lectureService: LectureService) { }
 
   ngOnInit() {
+    this.lectureService.findAllLectures().subscribe(element => {
+      element.forEach( ele => {
+
+        if(this.module.module_id == ele.module.module_id)
+          this.showTitles.push(ele)
+      })
+    })
   }
 
   addTitle(i) {
@@ -56,16 +65,25 @@ export class CourseBlockComponent implements OnInit {
       }
     }
     this.titles.push({ ...this.lecture });
+
   }
 
   saveTitle() {
-    this.lecture.lecture_name = this.titles[0].lecture_name;
-    this.lecture.module.module_id = this.module.module_id;
-    this.lecture.courseLecture.course_id = this.module.course.course_id;
-    //console.log(this.lecture);
 
-    this.lectureService.save(this.lecture).subscribe(result => {
-    });
+
+    this.titles.forEach(element => {
+      this.lecture.lecture_name = element.lecture_name;
+      this.lecture.module.module_id = this.module.module_id;
+      this.lecture.courseLecture.course_id = this.module.course.course_id;
+
+      this.lectureService.save(this.lecture).subscribe(result => {
+      });
+
+    })
+
+
+
+
   }
 
 }

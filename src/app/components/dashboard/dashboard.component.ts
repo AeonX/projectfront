@@ -11,6 +11,9 @@ export class DashboardComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    
+    //darkmode.toggle();
+  //console.log(darkmode.isActivated())
     //get username
     let username = sessionStorage.getItem('user_name');
     

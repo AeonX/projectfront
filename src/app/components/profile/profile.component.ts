@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -8,15 +8,24 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
 
-  employeeForm: FormGroup;
+  title = 'Angular Form Validation Tutorial';
+  angForm: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+    this.createForm();
+   }
 
   ngOnInit() {
-    this.employeeForm = new FormGroup({
-      fullName: new FormControl(),
-      email: new FormControl()
-    })
+  }
+
+  createForm() {
+    this.angForm = this.fb.group({
+       firstname: ['', Validators.required ],
+       lastname: ['', Validators.required ],  
+       username: ['', Validators.required ],  
+       email: ['', Validators.required ],  
+       aboutme: ['', Validators.required ]  
+    });
   }
 
   onSubmit(): void { }

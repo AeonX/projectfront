@@ -24,7 +24,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import {ProgressBarModule} from "angular-progress-bar";
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { AddLectureComponent } from './components/add-lecture/add-lecture.component';
+import { ViewLectureComponent } from './components/view-lecture/view-lecture.component';
 import { EmbedVideo } from 'ngx-embed-video';
 import { DisqusModule } from "ngx-disqus";
 import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
@@ -32,6 +32,9 @@ import { QuizService } from './service/quiz.service';
 import { CourseBlockComponent } from './components/courseEditor/course-block/course-block.component';
 import { ChartsModule } from 'ng2-charts';
 import { StatsComponent } from './components/stats/stats.component';
+import { AddLectureComponent } from './components/add-lecture/add-lecture.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import {Ng8BreadcrumbModule} from 'ng8-breadcrumb';
 
 @NgModule({
   declarations: [
@@ -49,10 +52,11 @@ import { StatsComponent } from './components/stats/stats.component';
     LogoutComponent,
     FooterComponent,
     HeaderComponent,
-    AddLectureComponent,
+    ViewLectureComponent,
     QuizViewComponent,
     CourseBlockComponent,
-    StatsComponent
+    StatsComponent,
+    AddLectureComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,11 @@ import { StatsComponent } from './components/stats/stats.component';
     AngularFontAwesomeModule,
     EmbedVideo.forRoot(),
     DisqusModule.forRoot('webify'),
-    ChartsModule
+    ChartsModule,
+    EditorModule,
+    Ng8BreadcrumbModule.forRoot({
+      prefix: 'home'
+  }),
   ],
   providers: [
     UserService,

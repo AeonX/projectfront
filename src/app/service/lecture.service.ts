@@ -30,4 +30,24 @@ export class LectureService {
             return response;
         }))
     }
+
+    public update(lecture: lectureDto) {
+        const headers = new HttpHeaders({
+            Authorization: 'Basic ' + btoa(this.username + ':' + this.pwd),
+            observe: 'response'
+        });
+        return this.http.put<lectureDto>(this.lectureUrl, lecture, { headers }).pipe(map((response: any) => {
+            return response;
+        }))
+    }
+
+    // public findLectureById(lecture: lectureDto) {
+    //     const headers = new HttpHeaders({
+    //         Authorization: 'Basic ' + btoa(this.username + ':' + this.pwd),
+    //         observe: 'response'
+    //     });
+    //     return this.http.put<lectureDto>(this.lectureUrl, lecture, { headers }).pipe(map((response: any) => {
+    //         return response;
+    //     }))
+    // }
 }

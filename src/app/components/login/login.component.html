@@ -14,7 +14,7 @@
                         *ngIf=" !loginForm.get('password').valid && loginForm.get('email').touched">
                         Password is required and should less than 10 characters
                     </div>
-                    <button [disabled]='loginForm.invalid' class="btn btn-primary mt-3">Login</button>
+                    <button [disabled]='loginForm.invalid' class="btn btn-danger mt-3">Login</button>
                 </form>
         </div>
     </div>

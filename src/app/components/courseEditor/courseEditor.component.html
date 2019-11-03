@@ -3,11 +3,14 @@
         <h2 class="float-left">Course Editor</h2>
     </div>
     <div class="row">
+        <ng8-breadcrumb></ng8-breadcrumb>
+    </div>
+    <div class="row">
         <div class="d-flex justify-content-between">
-            <button class="btn btn-primary mt-3 mb-4 mr-2" data-toggle="modal" data-target="#exampleModal">Create
+            <button class="btn btn-danger mt-3 mb-4 mr-2" data-toggle="modal" data-target="#exampleModal">Create
                 module</button>
-            <button routerLink="/addLecture" class="btn btn-primary mt-3 mb-4 mr-2">Go to add lecture (temp)</button>
-            <button routerLink="/quizView" class="btn btn-primary mt-3 mb-4">Go to quiz view (temp)</button>
+            <button routerLink="/viewLecture" class="btn btn-danger mt-3 mb-4 mr-2">Go to add lecture (temp)</button>
+            <button routerLink="/quizView" class="btn btn-danger mt-3 mb-4">Go to quiz view (temp)</button>
         </div>
 
     </div>
@@ -18,7 +21,7 @@
 
         <!-- start of accordion -->
         <div id="accordion" class="myaccordion" *ngFor="let module of modules; let i = index;">
-                <app-course-block [module]="module"></app-course-block>
+            <app-course-block [module]="module" [i]="i"></app-course-block>
         </div>
         <!-- end of accordion -->
 
@@ -57,7 +60,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" (click)="onClick()" data-dismiss="modal">Add
+                <button type="button" class="btn btn-danger" (click)="onClick()" data-dismiss="modal">Add
                     module</button>
             </div>
         </div>

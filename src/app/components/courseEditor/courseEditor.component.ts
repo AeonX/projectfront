@@ -48,14 +48,6 @@ export class CourseEditorComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.moduleItem);
-    
-    // this.moduleItem.toArray().forEach( el => {
-    //   console.log(el);
-    // })
-
-
-
     this.moduleService.findAllModules().subscribe(result => {
       
       result.filter(res => {

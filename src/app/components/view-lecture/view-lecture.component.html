@@ -7,14 +7,14 @@
     <div>
         <div class="row">
             <div class="col-md-9">
-                <div *ngIf="selectedVideoLecture?.video_url">
+                <div *ngIf="selectedVideoLecture?.video_url" style="padding: 5px; background: #CCCCCC;">
                     <video width="100%" height="100%" controls>
                         <source [src]="selectedVideoLecture.video_url" type="video/mp4">
                     </video>
                 </div>
             </div>
 
-            <div class="col-md-3" style="background-color: #ccc">
+            <div class="col-md-3" style="background-color: #ccc; height: 618px; overflow-y: scroll">
                 <h5 class="m-3" *ngFor="let section of sections;">{{section.module_name}}</h5>
                 <div class="panel panel-default">
                     <strong>

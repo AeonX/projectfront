@@ -30,7 +30,7 @@ export class ViewLectureComponent implements OnInit {
         }
         this.lecturePanels.push(res);
         if (this.lecturePanels.length) {
-          this.selectPanel(this.lecturePanels[0])
+          this.selectPanel(this.lecturePanels[0]);
         }
       })
     })

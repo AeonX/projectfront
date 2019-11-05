@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/service/user.service';
+import { CourseService } from 'src/app/service/course.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,12 +9,20 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  user_id = sessionStorage.getItem('user_id');
+  role_id = parseInt(sessionStorage.getItem('user_id'));
+  courses: any[] = [];
+
+  constructor(private userService: UserService, private courseService: CourseService) { }
 
   ngOnInit() {
+    console.log(this.role_id);
+    this.courseService.findAllCourses().subscribe(courses => {
+      courses.filter(result => {
+          this.courses.push(result);
+      })
+    });
     
-    //darkmode.toggle();
-  //console.log(darkmode.isActivated())
     //get username
     let username = sessionStorage.getItem('user_name');
     
@@ -26,5 +35,4 @@ export class DashboardComponent implements OnInit {
       })
     })
   }
-
 }

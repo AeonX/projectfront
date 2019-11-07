@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { UserService } from 'src/app/service/user.service';
 import { CourseService } from 'src/app/service/course.service';
 
@@ -7,22 +7,22 @@ import { CourseService } from 'src/app/service/course.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnChanges {
 
   user_id = sessionStorage.getItem('user_id');
-  role_id = parseInt(sessionStorage.getItem('user_id'));
+  role_id = parseInt(sessionStorage.getItem('role_id'));
   courses: any[] = [];
 
   constructor(private userService: UserService, private courseService: CourseService) { }
 
   ngOnInit() {
-    console.log(this.role_id);
+    console.log('entered');
     this.courseService.findAllCourses().subscribe(courses => {
       courses.filter(result => {
           this.courses.push(result);
       })
     });
-    
+
     //get username
     let username = sessionStorage.getItem('user_name');
     
@@ -30,9 +30,12 @@ export class DashboardComponent implements OnInit {
     this.userService.findLoggedInUserDetails().subscribe( result => {
       result.filter(element => {
         if(username === element.user_name) {
+          sessionStorage.setItem('role_id', element.role.role_id.toString());
           sessionStorage.setItem('user_id', element.user_id.toString());
         }
       })
     })
   }
+
+  ngOnChanges(): void {}
 }

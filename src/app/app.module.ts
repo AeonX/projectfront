@@ -35,6 +35,8 @@ import { StatsComponent } from './components/stats/stats.component';
 import { AddLectureComponent } from './components/add-lecture/add-lecture.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import {Ng8BreadcrumbModule} from 'ng8-breadcrumb';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { QuizEditorComponent } from './components/quiz-editor/quiz-editor.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import {Ng8BreadcrumbModule} from 'ng8-breadcrumb';
     QuizViewComponent,
     CourseBlockComponent,
     StatsComponent,
-    AddLectureComponent
+    AddLectureComponent,
+    QuizEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +76,7 @@ import {Ng8BreadcrumbModule} from 'ng8-breadcrumb';
     DisqusModule.forRoot('webify'),
     ChartsModule,
     EditorModule,
+    NgxPaginationModule,
     Ng8BreadcrumbModule.forRoot({
       prefix: 'home'
   }),

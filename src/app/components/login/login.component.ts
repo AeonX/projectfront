@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
           let details = user.filter(role => {
             return this.loginForm.value.user_name === role.user_name;
           })
-          sessionStorage.setItem('role_id', details[0].role.role_id.toString())
+          // sessionStorage.setItem('role_id', details[0].role.role_id.toString())
         })
 
 

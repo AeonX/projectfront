@@ -16,6 +16,7 @@ import { ViewLectureComponent } from './components/view-lecture/view-lecture.com
 import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { AddLectureComponent } from './components/add-lecture/add-lecture.component';
+import { QuizEditorComponent } from './components/quiz-editor/quiz-editor.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'quizView', component: QuizViewComponent},
   { path: 'stats', component: StatsComponent},
   { path: 'addLecture/:lecture_id', component: AddLectureComponent},
+  { path: 'quizEditor', component: QuizEditorComponent},
 ];
 
 @NgModule({

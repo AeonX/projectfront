@@ -1,23 +1,40 @@
-<div class="container">
-    
-<!-- Display the current question -->
+<div class="container-fluid">
+  <div class="row pb-5" style="background:#DC3545">
+    <div class="col-md-4 offset-md-3">
+      <h3>Question 1</h3>
 
-<h2>{{ question?.category }}</h2>
-<h4>{{ question?.question }}</h4>
+      <p>What are pipes in Angular?</p>
 
-<!-- Create a form for the answers -->
+      <button class="btn" style="width: 600px;">
+        <div class="card">
+          <div class="card-body">
+            This is some text within a card body.
+          </div>
+        </div>
+      </button>
 
-<form novalidate [formGroup]="form">
-	<ng-container *ngFor="let answer of question?.answers">
+      <button class="btn" style="width: 600px;">
+        <div class="card">
+          <div class="card-body">
+            This is some text within a card body.
+          </div>
+        </div>
+      </button>
+      <button class="btn" style="width: 600px;">
+        <div class="card">
+          <div class="card-body">
+            This is some text within a card body.
+          </div>
+        </div>
+      </button>
+      <button class="btn" style="width: 600px;">
+        <div class="card">
+          <div class="card-body">
+            This is some text within a card body.
+          </div>
+        </div>
+      </button>
 
-    <!-- 
-
-      3. bind your answers to a click event : when the user clicks on an answer, store it in the list of answers in the service, and navigate to the next question. This is all done automatically thanks to the service : the question (and its answers) comes from the service, the current question comes from the service, the answers are stored in the service. 
-
-      Go to quiz.service.ts
-
-    -->
-		<input type="radio" formControlName="answer" name="answer" [value]="answer" (click)="quiz.validate(answer); router.navigate(['/question', quiz.questionId + 1])"> {{ answer }}<br/>
-	</ng-container>
-</form>
+    </div>
+  </div>
 </div>

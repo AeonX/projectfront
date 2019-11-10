@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as AWS from 'aws-sdk';
-import { lectureDto } from 'src/app/model/backend.model';
+import { lectureDto, quizDto } from 'src/app/model/backend.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { LectureService } from 'src/app/service/lecture.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { QuizService } from 'src/app/service/quiz.service';
+
 
 @Component({
   selector: 'app-add-lecture',
@@ -23,6 +25,27 @@ export class AddLectureComponent implements OnInit {
   currentLecture: lectureDto;
   saveDescription: string;
   addDescription: boolean = false;
+  quizForm: FormGroup;
+  filteredQuiz: quizDto[] = [];
+  quiz: quizDto = {
+    quiz_id: null,
+    quiz_name: null,
+    courseQuiz: {
+      course_id: null,
+      course_name: null,
+      created_on: null,
+      description: null,
+      img_url: null,
+      user: null
+    },
+    moduleQuiz: {
+        description: null,
+        module_code: null,
+        module_id: null,
+        module_name: null,
+        course: null
+    }
+  }
 
   lectureForm: FormGroup;
 
@@ -42,7 +65,7 @@ export class AddLectureComponent implements OnInit {
     }
   }
 
-  constructor(private lectureService: LectureService, private route: ActivatedRoute) { }
+  constructor(private lectureService: LectureService, private quizService: QuizService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     let current_id;
@@ -55,7 +78,6 @@ export class AddLectureComponent implements OnInit {
       result.forEach(element => {
         if (element.lecture_id === current_id) {
           this.currentLecture = element;
-          console.log(this.currentLecture.description);
           if (this.currentLecture.description !== null) {
             this.addDescription = true;
             this.saveDescription = this.currentLecture.description;
@@ -68,7 +90,34 @@ export class AddLectureComponent implements OnInit {
         }
       });
     });
+
+    this.quizService.findAllQuizzes().subscribe(quiz => {
+      //console.log('quiz' , quiz);
+
+      // quiz.forEach(element => {
+      //   // if(element.courseQuiz.course_id === this.currentLecture.courseLecture.course_id && element.moduleQuiz.module_id === this.currentLecture.module.module_id) {
+      //   //   this.filteredQuiz.push(element);
+      //   // }
+      //   console.log('this', typeof element.courseQuiz.course_id);
+      //   // console.log('this', this.currentLecture.courseLecture.course_id);
+      // })
+
+      quiz.filter(element => {
+        if(this.currentLecture.courseLecture.course_id === element.courseQuiz.course_id && element.moduleQuiz.module_id === this.currentLecture.module.module_id) {
+          this.filteredQuiz.push(element);
+        }
+      })
+    })
+
+    //console.log('fi', this.filteredQuiz);
+
+   // console.log('this', this.filteredQuiz);
+
     this.lectureForm = new FormGroup({
+    });
+
+    this.quizForm = new FormGroup({
+      quizname: new FormControl()
     });
   }
 
@@ -117,15 +166,20 @@ export class AddLectureComponent implements OnInit {
   closeModal() {
     if (this.currentLecture.video_url !== "") {
       this.hasVideoUrl = true;
-
       this.lectureService.save(this.currentLecture).subscribe(result => {
         this.lectureService.findAllLectures().subscribe(res => {
-
         })
       })
-
     }
+  }
 
+  closeModalQuiz() {
+    this.quiz.quiz_name = this.quizForm.value.quizname;
+    this.quiz.moduleQuiz.module_id = this.currentLecture.module.module_id;
+    this.quiz.courseQuiz.course_id = this.currentLecture.module.course.course_id;
+    this.quizService.save(this.quiz).subscribe( res => {
+      console.log('test', res);
+    })
   }
 
   addText() {

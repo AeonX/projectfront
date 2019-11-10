@@ -43,9 +43,11 @@ export interface lectureDto {
     courseLecture: courseDto;
 }
 
-export interface quizDto extends moduleDto{
+export interface quizDto{
     quiz_id: number;
     quiz_name: string;
+    moduleQuiz: moduleDto;
+    courseQuiz: courseDto;
 }
 
 export interface quizQuestionDto extends quizDto{

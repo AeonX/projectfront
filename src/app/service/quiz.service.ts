@@ -1,38 +1,28 @@
 import { Injectable } from '@angular/core';
+import { quizDto } from '../model/backend.model';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class QuizService {
 
-  // the list of questions and their answers
-  questions = [
-    {
-      category: 'Coding',
-      question: 'Angular is a framework made for :',
-      answers: ['front-end', 'back-end']
-    },
-    {
-      category: 'Coding',
-      question: 'Angular is not the same as AngularJS : ',
-      answers: ['true', 'false']
-    },
-  ];
+  private quizUrl: string = 'http://localhost:8085/project/quizzes';
+  private username: string = sessionStorage.getItem('user_name');
+  private pwd: string = sessionStorage.getItem('pwd');
 
-  // the ID of the current question displayed. Used to navigate and query a specific question.
-  questionId: number;
+  constructor(private http: HttpClient) { }
 
-  // The list of answers. 
-  answers = [];
+  public findAllQuizzes(): Observable<quizDto[]> {
+    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(this.username + ':' + this.pwd) });
+    return this.http.get<quizDto[]>(this.quizUrl, {headers});
+}
 
-  constructor() { }
-
-  /*
-    4. Store the answer. Called when the user clicks on an answer. 
-    Because we are already checking if the question ID isn't greater than the total of questions, we don't need to check if the answer given by the user is the last one. 
-
-    Go to answer.component.html
-  */
-  validate(answer) {
-    this.answers.push({ question: this.questions[this.questionId].question, answer });
+public save(quiz: quizDto) {
+    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(this.username + ':' + this.pwd) });
+    console.log(quiz, 'quizzes');
+    return this.http.post<quizDto>(this.quizUrl, quiz, {headers});
   }
 
 }

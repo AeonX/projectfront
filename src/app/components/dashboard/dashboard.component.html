@@ -1,21 +1,65 @@
-<div class="container">
+<div class="container mb-4">
   <ng8-breadcrumb></ng8-breadcrumb>
 
   <h2 class="mt-3">Dashboard</h2>
 
   <div class="row">
-    <div class="col-md-4" *ngFor="let course of courses; let index = index;">
-      <div class="card mt-3" style="">
-        <img class="card-img-top" style="height:100%" src="{{course.img_url}}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">{{course.course_name}}</h5>
-          <p class="card-text">{{course.description}}</p>
-          <a href="#" class="btn btn-danger mr-5" *ngIf="role_id === 2">Enroll</a>
-          <a [routerLink]="['/courseEditor', course.course_id]" class="btn btn-danger">View Course</a>
+
+    <div class="col-md-3 mt-3">
+      <div class="row mx-1 pb-3 mt-2" style="background: #ccc">
+        <div class="col-md-12">
+          <p>Type</p>
         </div>
+        <div class="col-md-12">
+            <input id="type1" type="checkbox">
+            <label for="" class="">Course</label>
+        </div>  
+        <div class="col-md-12">
+            <input id="type2" type="checkbox">
+            <label for="" class="">Learning path</label>
+        </div>     
       </div>
+
+
+      <div class="row mx-1 pb-3 mt-2" style="background: #ccc">
+          <div class="col-md-12">
+            <p>Level</p>
+          </div>
+          <div class="col-md-12">
+              <input id="type1" type="checkbox">
+              <label for="" class="">Beginner</label>
+          </div>  
+          <div class="col-md-12">
+              <input id="type2" type="checkbox">
+              <label for="" class="">Intermediate</label>
+          </div> 
+          <div class="col-md-12">
+              <input id="type2" type="checkbox">
+              <label for="" class="">Advanced</label>
+          </div>     
+        </div>
     </div>
+
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-4 mb-4" *ngFor="let course of courses; let index = index;">
+              <div class="card mt-3 h-100" style=" position: relative">
+                <img class="card-img-top" style="" src="{{course.img_url}}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{course.course_name}}</h5>
+                  <p class="card-text">{{course.description}}</p>
+                  <a href="#" class="btn btn-danger mr-5" style="position: absolute; bottom: 10px;" *ngIf="role_id === 2">Enroll</a>
+                  <a [routerLink]="['/courseEditor', course.course_id]" class="btn btn-danger" style="position: absolute; bottom: 10px;">View Course</a>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+
   </div>
+  
 
 
 </div>
+
+<app-footer></app-footer>

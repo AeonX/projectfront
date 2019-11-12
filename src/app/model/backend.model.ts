@@ -57,5 +57,8 @@ export interface quizQuestionDto extends quizDto{
 
 export interface quizAnswerDto extends quizQuestionDto{
     quiz_answer_id: number;
-    answer: string;
+    answer1: string;
+    answer2: string;
+    answer3: string;
+    answer4: string;
 }

@@ -4,7 +4,7 @@ export interface RoleDto {
 }
 
 export interface UserDto {
-    user_id: number;
+    id: number;
     first_name: string;
     last_name: string;
     user_name: string;
@@ -14,7 +14,7 @@ export interface UserDto {
 }
 
 export interface UserDtos {
-    user_id: number;
+    id: number;
 }
 
 export interface courseDto {
@@ -50,15 +50,24 @@ export interface quizDto{
     courseQuiz: courseDto;
 }
 
-export interface quizQuestionDto extends quizDto{
+export interface quizQuestionDto{
     quiz_question_id: number;
     question: string;
+    quizQuizQuestion: quizDto
 }
 
-export interface quizAnswerDto extends quizQuestionDto{
+export interface quizAnswerDto{
     quiz_answer_id: number;
     answer1: string;
     answer2: string;
     answer3: string;
     answer4: string;
+    correct_answer: number;
+    quizQuestion: quizQuestionDto;
+}
+
+export interface enrollmentDto {
+    enrollment_id: number;
+    courseEnrollment: courseDto;
+    student_id: number;
 }

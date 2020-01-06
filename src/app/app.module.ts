@@ -37,6 +37,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import {Ng8BreadcrumbModule} from 'ng8-breadcrumb';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { QuizEditorComponent } from './components/quiz-editor/quiz-editor.component';
+import { AuthenticationService } from './service/authentication.service';
+import { AddQuizComponent } from './private/add-quiz/add-quiz.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { QuizEditorComponent } from './components/quiz-editor/quiz-editor.compon
     CourseBlockComponent,
     StatsComponent,
     AddLectureComponent,
-    QuizEditorComponent
+    QuizEditorComponent,
+    AddQuizComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +86,8 @@ import { QuizEditorComponent } from './components/quiz-editor/quiz-editor.compon
   ],
   providers: [
     UserService,
-    QuizService
+    QuizService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

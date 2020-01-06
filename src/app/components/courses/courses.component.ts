@@ -4,6 +4,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import * as AWS from 'aws-sdk';
 import { courseDto, UserDtos } from 'src/app/model/backend.model';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 
 declare var $: any;
 
@@ -22,9 +23,9 @@ export class CoursesComponent implements OnInit, OnChanges {
   error: string;
   image: any;
   user = sessionStorage.getItem('user_name');
-  user_id = sessionStorage.getItem('user_id');
+  //user_id = sessionStorage.getItem('user_id');
   role_id = parseInt(sessionStorage.getItem('user_id'));
-  currentUser: any;
+  currentUser: any = this.authenticationService.decode();
   isLoading: boolean = false;
   imgSize: number = 0;
   canSaveCourse: number = 0;
@@ -36,23 +37,33 @@ export class CoursesComponent implements OnInit, OnChanges {
     created_on: null,
     img_url: null,
     user: {
-      user_id: null
+      id: null
     }
   }
 
-  constructor(private router: Router, private courseService: CourseService, private route: ActivatedRoute) {
-    console.log('cons');
+  currentUserRole = this.currentUser.authorities[0] ? this.currentUser.authorities[0] : "";
+
+  isAdmin: boolean = false;
+  user_id = localStorage.getItem("user_id");
+
+  constructor(private router: Router, private courseService: CourseService, private route: ActivatedRoute, private authenticationService: AuthenticationService) {
+
+    if (this.currentUserRole && this.currentUserRole == "STANDARD_USER") { this.isAdmin = true }
   }
 
   ngOnInit() {
+
     this.courseService.findAllCourses().subscribe(courses => {
-      
-      courses.filter(result => {
-        if (parseInt(this.user_id) === result.user.user_id) {
-          this.courses.push(result);
+
+      courses.forEach(element => {
+
+        if (element['user'] && this.currentUser.user_name == element['user']['username']) {
+          this.courses.push(element)
         }
-      })
+      });
+
     });
+
 
     this.courseForm = new FormGroup({
       coursename: new FormControl(),
@@ -69,7 +80,7 @@ export class CoursesComponent implements OnInit, OnChanges {
     //prepare data
     this.course.course_name = this.courseForm.value['coursename'];
     this.course.description = this.courseForm.value['description'];
-    this.course.user.user_id = parseInt(this.user_id);
+    this.course.user.id = parseInt(this.user_id);
 
     this.courseService.save(this.course).subscribe(result => {
 
@@ -78,7 +89,7 @@ export class CoursesComponent implements OnInit, OnChanges {
         //empty array before getting new result
         this.courses = [];
         courses.filter(result => {
-          if (parseInt(this.user_id) === result.user.user_id) {
+          if (parseInt(this.user_id) === result.user.id) {
             this.courses.push(result);
           }
         })

@@ -3,7 +3,7 @@ import * as AWS from 'aws-sdk';
 import { lectureDto, quizDto } from 'src/app/model/backend.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { LectureService } from 'src/app/service/lecture.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { QuizService } from 'src/app/service/quiz.service';
 
@@ -39,11 +39,11 @@ export class AddLectureComponent implements OnInit {
       user: null
     },
     moduleQuiz: {
-        description: null,
-        module_code: null,
-        module_id: null,
-        module_name: null,
-        course: null
+      description: null,
+      module_code: null,
+      module_id: null,
+      module_name: null,
+      course: null
     }
   }
 
@@ -65,7 +65,10 @@ export class AddLectureComponent implements OnInit {
     }
   }
 
-  constructor(private lectureService: LectureService, private quizService: QuizService, private route: ActivatedRoute) { }
+  currentQuizId;
+  goToQuiz: boolean = false;
+
+  constructor(private lectureService: LectureService, private quizService: QuizService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     let current_id;
@@ -82,7 +85,7 @@ export class AddLectureComponent implements OnInit {
             this.addDescription = true;
             this.saveDescription = this.currentLecture.description;
           }
-          
+
           if (this.currentLecture.video_url !== "") {
             this.hasVideoUrl = true;
             this.video_url = this.currentLecture.video_url;
@@ -92,26 +95,22 @@ export class AddLectureComponent implements OnInit {
     });
 
     this.quizService.findAllQuizzes().subscribe(quiz => {
-      //console.log('quiz' , quiz);
 
       // quiz.forEach(element => {
       //   // if(element.courseQuiz.course_id === this.currentLecture.courseLecture.course_id && element.moduleQuiz.module_id === this.currentLecture.module.module_id) {
       //   //   this.filteredQuiz.push(element);
       //   // }
-      //   console.log('this', typeof element.courseQuiz.course_id);
-      //   // console.log('this', this.currentLecture.courseLecture.course_id);
       // })
 
       quiz.filter(element => {
-        if(this.currentLecture.courseLecture.course_id === element.courseQuiz.course_id && element.moduleQuiz.module_id === this.currentLecture.module.module_id) {
+        if (this.currentLecture.courseLecture.course_id === element.courseQuiz.course_id && element.moduleQuiz.module_id === this.currentLecture.module.module_id) {
           this.filteredQuiz.push(element);
+          this.currentQuizId = element.quiz_id;
         }
       })
     })
 
-    //console.log('fi', this.filteredQuiz);
 
-   // console.log('this', this.filteredQuiz);
 
     this.lectureForm = new FormGroup({
     });
@@ -122,6 +121,11 @@ export class AddLectureComponent implements OnInit {
   }
 
   addVideoUrl() {
+  }
+
+  goToAddQuiz() {
+
+    this.goToQuiz = !this.goToQuiz;
   }
 
   fileEvent(fileInput: any) {
@@ -177,8 +181,8 @@ export class AddLectureComponent implements OnInit {
     this.quiz.quiz_name = this.quizForm.value.quizname;
     this.quiz.moduleQuiz.module_id = this.currentLecture.module.module_id;
     this.quiz.courseQuiz.course_id = this.currentLecture.module.course.course_id;
-    this.quizService.save(this.quiz).subscribe( res => {
-      console.log('test', res);
+
+    this.quizService.save(this.quiz).subscribe(res => {
     })
   }
 

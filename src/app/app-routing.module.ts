@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'quizView', component: QuizViewComponent},
   { path: 'stats', component: StatsComponent},
   { path: 'addLecture/:lecture_id', component: AddLectureComponent},
-  { path: 'quizEditor', component: QuizEditorComponent},
+  { path: 'quizEditor/:quiz_id', component: QuizEditorComponent},
 ];
 
 @NgModule({

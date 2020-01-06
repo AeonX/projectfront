@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.config.json",
+    "start": "ng serve --proxy-config proxy.config.json --port 4201",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~8.2.8",
     "@angular/platform-browser-dynamic": "~8.2.8",
     "@angular/router": "~8.2.8",
+    "@auth0/angular-jwt": "^3.0.1",
     "@cloudinary/angular-5.x": "^1.0.3",
     "@tinymce/tinymce-angular": "^3.3.1",
     "angular-font-awesome": "^3.1.2",

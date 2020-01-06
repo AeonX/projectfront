@@ -1,68 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 import { UserService } from 'src/app/service/user.service';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { UserDto } from 'src/app/model/backend.model';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+
 
 
 @Component({
-  selector: 'app-login',
+  selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  model: any = {};
+  loading = false;
+  error = '';
+  redirectUrl: string;
 
-  user: UserDto;
-  loginForm: FormGroup;
-
-  constructor(private router: Router, private userService: UserService, private toastrService: ToastrService) {
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private authenticationService: AuthenticationService,
+              private userService: UserService) {
+    this.redirectUrl = this.activatedRoute.snapshot.queryParams['redirectTo'];
   }
 
-  ngOnInit() {
-    this.loginForm = new FormGroup({
-      user_name: new FormControl(),
-      password: new FormControl()
-
-    })
-
-    sessionStorage.clear();
+  ngOnInit(): void {
+    this.userService.logout();
   }
 
-  onSubmit() {
+  login() {
+    this.loading = true;
+
+    this.authenticationService.login(this.model.username, this.model.password)
+      .subscribe(
+        result => {
+          this.loading = false;
+
+          if (result) {
+            this.userService.login(result);
+            this.navigateAfterSuccess();
+          } else {
+            this.error = 'Username or password is incorrect';
+          }
+        },
+        error => {
+          this.error = 'Username or password is incorrect';
+          this.loading = false;
+        }
+      );
   }
 
-  validateUser() {
-    this.userService.authenticate(this.loginForm.value.user_name, this.loginForm.value.password).subscribe(result => {
-      //check if credentials entered === data retrieved from database
-      if (result) {
-        this.userService.findLoggedInUserDetails().subscribe(res => {
-          res.filter(user => {
-            if (user.user_name === this.loginForm.value.user_name) {
-              sessionStorage.setItem('user_id', user.user_id.toString());
-            }
-          })
-        })
-
-        this.userService.findLoggedInUserDetails().subscribe(user => {
-          let details = user.filter(role => {
-            return this.loginForm.value.user_name === role.user_name;
-          })
-          // sessionStorage.setItem('role_id', details[0].role.role_id.toString())
-        })
-
-
-        this.toastrService.success("Logged in successfully", 'Welcome Back, ' + this.loginForm.value.user_name + '.', { progressBar: true });
-        this.gotoUserList();
-      } else {
-        this.toastrService.error("Wrong username or password.", "Please try again.", { progressBar: true });
-      }
-    });
-
+  private navigateAfterSuccess() {
+    if (this.redirectUrl) {
+      this.router.navigateByUrl(this.redirectUrl);
+    } else {
+      this.router.navigate(['/']);
+    }
   }
-
-  gotoUserList() {
-    this.router.navigate(['dashboard']);
-  }
-
 }

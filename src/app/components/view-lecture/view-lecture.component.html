@@ -12,6 +12,10 @@
                         <source [src]="selectedVideoLecture.video_url" type="video/mp4">
                     </video>
                 </div>
+                <div *ngIf="selectedVideoLecture?.video_url == null">
+                    <app-quiz-view></app-quiz-view>
+                </div>
+                
             </div>
 
             <div class="col-md-3" style="background-color: #ccc; height: 618px; overflow-y: scroll">

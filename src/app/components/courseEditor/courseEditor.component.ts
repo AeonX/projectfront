@@ -83,7 +83,7 @@ export class CourseEditorComponent implements OnInit {
         created_on: null,
         img_url: null,
         user: {
-          user_id: null
+          id: null
         }
       }
     }

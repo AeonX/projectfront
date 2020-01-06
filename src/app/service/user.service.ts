@@ -1,51 +1,61 @@
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { TOKEN_NAME } from './auth.constant';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UserStatus } from '../model/userStatus';
-import { map } from 'rxjs/operators';
-import { UserDto } from '../model/backend.model';
 
 @Injectable()
 export class UserService {
+  jwtHelper: JwtHelperService = new JwtHelperService();
+  accessToken: string;
+  isAdmin: boolean;
+  accessToken1 = localStorage.getItem('access_token');
+  decodedToken;
 
-  private usersUrl: string;
-  private validateLoginUrl: string = 'http://localhost:8085/project/validateLogin';
-
-  private username = sessionStorage.getItem('user_name');
-  private pwd = sessionStorage.getItem('pwd');
+  private usersUrl = "/private/users"
+  headers: any;
+  httpOptions = {
+      headers: this.headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
+          .set('Authorization', 'Bearer ' + this.accessToken1)
+  };
 
   constructor(private http: HttpClient) {
-    this.usersUrl = 'http://localhost:8085/project/users';
+    
   }
 
-  public findLoggedInUserDetails(): Observable<UserDto[]>{
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'Basic ' + btoa(this.username + ':' + this.pwd) });
-    return this.http.get<UserDto[]>(this.usersUrl, {headers});
+  public getAllUsers(): Observable<any[]> {
+    
+    this.decodedToken = this.jwtHelper.decodeToken(this.accessToken1);
+    return this.http.get<any[]>(this.usersUrl, this.httpOptions);
   }
 
-  public save(user: UserDto) {
-    return this.http.post<UserDto>(this.usersUrl, user);
-  }
+  login(accessToken: string) {
+    this.decodedToken = this.jwtHelper.decodeToken(accessToken);
 
-  public authenticate(username, password) {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'Basic ' + btoa(username + ':' + password) });
-    return this.http.get<UserStatus>(this.validateLoginUrl, {headers}).pipe(
-      map(
-        userData => {
-        sessionStorage.setItem('user_name', username);
-        sessionStorage.setItem('pwd', password);
-         return userData;
-        }
-      )
-     );
+    // this.isAdmin = this.decodedToken.authorities.some(el => {
+    //   console.log('el', el);
+    //   el === 'ADMIN_USER'
+    // });
+    this.accessToken = accessToken;
+
+    localStorage.setItem(TOKEN_NAME, accessToken);
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('user_name');
-    return !(user === null);
+    return true;
   }
 
-  logOut() {
-    sessionStorage.clear();
+  logout() {
+    this.accessToken = null;
+    this.isAdmin = false;
+    localStorage.removeItem(TOKEN_NAME);
   }
+
+  // isAdminUser(): boolean {
+  //   return this.isAdmin;
+  // }
+
+  // isUser(): boolean {
+  //   return this.accessToken && !this.isAdmin;
+  // }
 }

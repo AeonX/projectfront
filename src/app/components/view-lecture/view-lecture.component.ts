@@ -13,6 +13,7 @@ export class ViewLectureComponent implements OnInit {
   lecturePanels: any[] = [];
   sections: any[] = [];
   selectedVideoLecture: any;
+  currentUser = localStorage.getItem("user_id");
 
   constructor(private lectureService: LectureService,
     private changeDetectorRef: ChangeDetectorRef, private route: ActivatedRoute) { }
@@ -34,6 +35,9 @@ export class ViewLectureComponent implements OnInit {
         }
       })
     })
+
+    console.log('this', this);
+
   }
 
   selectPanel(lecturePanel: any) {

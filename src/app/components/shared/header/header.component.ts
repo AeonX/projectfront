@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService, private userService: UserService) { }
 
   ngOnInit() {
+    console.log('local', localStorage);
     this.userService.isUserLoggedIn();
   }
 

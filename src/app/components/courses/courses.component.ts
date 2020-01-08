@@ -5,6 +5,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as AWS from 'aws-sdk';
 import { courseDto, UserDtos } from 'src/app/model/backend.model';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { EnrollmentService } from 'src/app/service/enrollment.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserService } from 'src/app/service/user.service';
 
 declare var $: any;
 
@@ -29,6 +32,7 @@ export class CoursesComponent implements OnInit, OnChanges {
   isLoading: boolean = false;
   imgSize: number = 0;
   canSaveCourse: number = 0;
+  jwtHelper: JwtHelperService = new JwtHelperService();
 
   course: courseDto = {
     course_id: null,
@@ -46,23 +50,57 @@ export class CoursesComponent implements OnInit, OnChanges {
   isAdmin: boolean = false;
   user_id = localStorage.getItem("user_id");
 
-  constructor(private router: Router, private courseService: CourseService, private route: ActivatedRoute, private authenticationService: AuthenticationService) {
+  constructor(private router: Router, private courseService: CourseService,
+    private route: ActivatedRoute, private authenticationService: AuthenticationService,
+    private enrollmentService: EnrollmentService, private userService: UserService) {
 
     if (this.currentUserRole && this.currentUserRole == "STANDARD_USER") { this.isAdmin = true }
   }
 
   ngOnInit() {
+    let username = (this.jwtHelper.decodeToken(localStorage.getItem('access_token'))).user_name;
+    let userId;
 
-    this.courseService.findAllCourses().subscribe(courses => {
-
-      courses.forEach(element => {
-
-        if (element['user'] && this.currentUser.user_name == element['user']['username']) {
-          this.courses.push(element)
+    this.userService.getAllUsers().subscribe(users => {
+      users.forEach(user => {
+        if (user.username === username) {
+          userId = user.id;
+          this.user_id = user.id;
         }
-      });
+      })
 
-    });
+      console.log('this', this.currentUserRole);
+
+      if (this.currentUserRole === "INSTRUCTOR_USER") {
+        this.isAdmin = true;
+
+        this.courseService.findAllCourses().subscribe(courses => {
+          courses.forEach(course => {
+            if(userId === course.user.id) {
+              this.courses.push(course)
+            }
+          })
+        });
+
+      }
+
+      console.log('new userid', userId);
+
+
+
+      this.courseService.findAllCourses().subscribe(courses => {
+        //get courses enrolled by student
+        this.enrollmentService.findAllEnrollments().subscribe(enrollments => {
+          courses.forEach(course => {
+            enrollments.forEach(enrollment => {
+              if (course.course_id === enrollment.courseEnrollment.course_id && enrollment.student_id === userId) {
+                this.courses.push(course);
+              }
+            })
+          });
+        });
+      });
+    })
 
 
     this.courseForm = new FormGroup({

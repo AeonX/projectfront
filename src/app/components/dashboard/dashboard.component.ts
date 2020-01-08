@@ -34,7 +34,8 @@ export class DashboardComponent implements OnInit, OnChanges {
   }
 
   constructor(private userService: UserService, private courseService: CourseService,
-    private enrollmentService: EnrollmentService) { }
+    private enrollmentService: EnrollmentService) {
+  }
 
   ngOnInit() {
     this.courseService.findAllCourses().subscribe(courses => {
@@ -42,28 +43,11 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.courses.push(result);
       })
     });
-
-    this.userService.getAllUsers().subscribe(users => {
-
-      let decodeToken = this.jwtHelper.decodeToken(this.currentUser);
-
-      users.filter(element => {
-        if (element.username == decodeToken.user_name) {
-          this.user_id = element.id;
-          localStorage.setItem("user_id", this.user_id);
-        }
-      })
-    })
-
-    console.log('local', localStorage);
-
   }
 
   enrolled(event) {
-    console.log('event', this.courseInfo);
     this.enrollment.student_id = this.user_id;
     this.enrollment.courseEnrollment.course_id = this.courseInfo.course_id;
-
     this.enrollmentService.saveEnrollment(this.enrollment).subscribe(element => {
 
     })

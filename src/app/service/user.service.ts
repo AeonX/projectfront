@@ -13,6 +13,7 @@ export class UserService {
   decodedToken;
 
   private usersUrl = "/private/users"
+  private currentUserUrl: string = "/private/currentUser";
   headers: any;
   httpOptions = {
       headers: this.headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
@@ -40,6 +41,17 @@ export class UserService {
 
     localStorage.setItem(TOKEN_NAME, accessToken);
   }
+
+  getCurrentUser() {
+    let token = localStorage.getItem('access_token');
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
+        .set('Authorization', 'Bearer ' + token);
+
+    let httpOptions = {
+        headers: headers
+    };
+    return this.http.get(this.currentUserUrl, httpOptions);
+}
 
   isUserLoggedIn() {
     return true;

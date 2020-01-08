@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
     if (this.redirectUrl) {
       this.router.navigateByUrl(this.redirectUrl);
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(['/dashboard']);
     }
   }
 }

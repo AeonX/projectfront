@@ -30,11 +30,17 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     console.log('local', localStorage);
-    this.userService.isUserLoggedIn();
+    
   }
 
   changeTheme() {
     this.darkmode.toggle();
+  }
+
+  isUserLoggedIn() {
+    if(localStorage.getItem('access_token')) {
+      return true;
+    }
   }
 
 }

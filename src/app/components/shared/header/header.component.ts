@@ -34,8 +34,6 @@ export class HeaderComponent implements OnInit {
   darkmode = new Darkmode(this.options);
 
   constructor(private router: Router) {
-   
-    
   }
 
   ngOnInit() {

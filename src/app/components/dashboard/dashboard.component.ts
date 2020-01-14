@@ -52,21 +52,48 @@ export class DashboardComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    
 
-    this.enrollmentService.findAllEnrollments().subscribe(enrollments => {
-      enrollments.forEach(enrollment => {
-        this.enrolledCourseIds.push(enrollment.courseEnrollment.course_id);
+    console.log('current', this.currentUser);
+
+    let username = (this.jwtHelper.decodeToken(localStorage.getItem('access_token'))).user_name;
+    let userId;
+    let enrollmentUserId;
+
+    this.userService.getAllUsers().subscribe(users => {
+      users.forEach(user => {
+        if (user.username === username) {
+          this.user_id = user.id;
+        }
       })
 
-      this.courseService.findAllCourses().subscribe(courses => {
-        courses.filter(result => {
-          
+      this.enrollmentService.findAllEnrollments().subscribe(enrollments => {
+        enrollments.forEach(enrollment => {
+          enrollmentUserId = enrollment.student_id;
+          console.log('this.user_id', this.user_id);
+          console.log('enrollmentUserId', enrollmentUserId);
+          if (this.user_id === enrollmentUserId) {
+            console.log('entered in en');
+            this.enrolledCourseIds.push(enrollment.courseEnrollment.course_id);
+          }
         })
-      });
 
-      
-    });
+        console.log('enrolledCourseIds', this.enrolledCourseIds);
+        this.courseService.findAllCourses().subscribe(courses => {
+          courses.forEach(course => {
+            if (this.enrolledCourseIds.length) {
+              this.enrolledCourseIds.forEach(courseId => {
+                if (courseId !== course.course_id) {
+                  this.courses.push(course);
+                }
+              })
+            } else {
+              console.log('entered else');
+              this.courses.push(course);
+            }
+          })
+        });
+      });
+    })
   }
 
   viewPath(event) {

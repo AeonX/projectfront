@@ -33,6 +33,7 @@ export class AddLectureComponent implements OnInit {
     courseQuiz: {
       course_id: null,
       course_name: null,
+      course_level: null,
       created_on: null,
       description: null,
       img_url: null,
@@ -58,6 +59,7 @@ export class AddLectureComponent implements OnInit {
     courseLecture: {
       course_id: null,
       course_name: null,
+      course_level: null,
       created_on: null,
       description: null,
       img_url: null,

@@ -1,19 +1,22 @@
 <div class="container-fluid">
+  <div class="row">
+    <ng8-breadcrumb></ng8-breadcrumb>
+  </div>
   <div class="row pb-5" style="background:#DC3545">
     <div class="col-md-4 offset-md-3">
-      <h3>Question 1</h3>
+      <h3>Question {{quizNumberOfQuestions}}</h3>
 
-      <p>What are pipes in Angular?</p>
+      <p>{{quizQuestion}}</p>
 
-      <button class="btn" style="width: 600px;">
+      <button class="btn" style="width: 600px;" *ngFor="let answer of quizAnswer" (click)="onAnswerClick(answer)">
         <div class="card">
           <div class="card-body">
-            This is some text within a card body.
+            {{answer.answer1}}
           </div>
         </div>
       </button>
 
-      <button class="btn" style="width: 600px;">
+      <!-- <button class="btn" style="width: 600px;">
         <div class="card">
           <div class="card-body">
             This is some text within a card body.
@@ -33,7 +36,7 @@
             This is some text within a card body.
           </div>
         </div>
-      </button>
+      </button> -->
 
       <!-- <form [formGroup]="formGroup">
         <div class="row">

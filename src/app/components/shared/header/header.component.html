@@ -11,18 +11,20 @@
                 </li>
                 <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/logout" class="nav-link">LogOut</a>
                 </li> -->
-                                <li class="list-inline-item"><a *ngIf="userService.isUserLoggedIn()"
-                                                routerLink="/dashboard" class="nav-link">Dasboard</a></li>
-                                <li class="list-inline-item"><a *ngIf="isUserLoggedIn()"
-                                                routerLink="/profile" class="nav-link">Profile</a></li>
-                                <li class="list-inline-item"><a *ngIf="isUserLoggedIn()"
-                                                routerLink="/courses" class="nav-link">Courses</a></li>
-                                <li class="list-inline-item"><a *ngIf="isUserLoggedIn()"
-                                                routerLink="/logout" class="nav-link">Logout</a></li>
-                                <li class="list-inline-item"><a *ngIf="!isUserLoggedIn()"
-                                                routerLink="/login" class="nav-link">Login</a></li>
-                                <li class="list-inline-item"><a *ngIf="!isUserLoggedIn()"
-                                                routerLink="/register" class="nav-link">Register</a></li>
+                                <li class="list-inline-item"><a *ngIf="isUserLoggedIn()" routerLink="/dashboard"
+                                                class="nav-link">Dasboard</a></li>
+                                <li class="list-inline-item"><a *ngIf="isUserLoggedIn()" routerLink="/profile"
+                                                class="nav-link">Profile</a></li>
+                                <li class="list-inline-item"><a *ngIf="isUserLoggedIn()" routerLink="/courses"
+                                                class="nav-link">Courses</a></li>
+                                <li class="list-inline-item"><a *ngIf="isUserLoggedIn() && !isStudent" routerLink="/stats"
+                                                class="nav-link">Stats</a></li>
+                                <li class="list-inline-item"><a *ngIf="isUserLoggedIn()" (click)="logout()"
+                                                class="nav-link" style="cursor: pointer;">Logout</a></li>
+                                <li class="list-inline-item"><a *ngIf="!isUserLoggedIn()" routerLink="/login"
+                                                class="nav-link">Login</a></li>
+                                <li class="list-inline-item"><a *ngIf="!isUserLoggedIn()" routerLink="/register"
+                                                class="nav-link">Register</a></li>
                                 <label class="switch">
                                         <input type="checkbox" checked (click)="changeTheme()">
                                         <span class="slider round"></span>

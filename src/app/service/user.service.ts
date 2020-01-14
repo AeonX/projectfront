@@ -11,6 +11,7 @@ export class UserService {
   isAdmin: boolean;
   accessToken1 = localStorage.getItem('access_token');
   decodedToken;
+  userId;
 
   private usersUrl = "/private/users"
   private currentUserUrl: string = "/private/currentUser";
@@ -34,7 +35,6 @@ export class UserService {
     this.decodedToken = this.jwtHelper.decodeToken(accessToken);
 
     // this.isAdmin = this.decodedToken.authorities.some(el => {
-    //   console.log('el', el);
     //   el === 'ADMIN_USER'
     // });
     this.accessToken = accessToken;
@@ -70,4 +70,8 @@ export class UserService {
   // isUser(): boolean {
   //   return this.accessToken && !this.isAdmin;
   // }
+
+  //find current user id
+  //find if user is admin or not
+
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { UserService } from 'src/app/service/user.service';
 import Darkmode from 'darkmode-js';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-header',
@@ -24,13 +26,26 @@ export class HeaderComponent implements OnInit {
     autoMatchOsTheme: true // default: true
   }
 
+
+  jwtHelper: JwtHelperService = new JwtHelperService();
+  currentUser = (this.jwtHelper.decodeToken(localStorage.getItem('access_token')));
+  isStudent: boolean = this.currentUser['authorities'][0] !== 'STUDENT_USER';
+
   darkmode = new Darkmode(this.options);
 
-  constructor(private authenticationService: AuthenticationService, private userService: UserService) { }
+  constructor(private router: Router) {
+   
+    
+  }
 
   ngOnInit() {
-    console.log('local', localStorage);
-    
+    console.log(this.isStudent);
+    console.log('this.cu', this.currentUser['authorities'][0]);
+    if (this.currentUser['authorities'][0] !== 'STUDENT_USER') {
+      this.isStudent = false;
+    } else {
+      this.isStudent = true;
+    }
   }
 
   changeTheme() {
@@ -38,9 +53,14 @@ export class HeaderComponent implements OnInit {
   }
 
   isUserLoggedIn() {
-    if(localStorage.getItem('access_token')) {
+    if (localStorage.getItem('access_token')) {
       return true;
     }
+  }
+
+  logout() {
+    localStorage.removeItem("access_token");
+    this.router.navigate(['/home']);
   }
 
 }

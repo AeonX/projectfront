@@ -39,6 +39,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { QuizEditorComponent } from './components/quiz-editor/quiz-editor.component';
 import { AuthenticationService } from './service/authentication.service';
 import { AddQuizComponent } from './private/add-quiz/add-quiz.component';
+import { QuizStatsComponent } from './quiz-stats/quiz-stats.component';
+import { Path1Component } from './path1/path1.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { AddQuizComponent } from './private/add-quiz/add-quiz.component';
     StatsComponent,
     AddLectureComponent,
     QuizEditorComponent,
-    AddQuizComponent
+    AddQuizComponent,
+    QuizStatsComponent,
+    Path1Component
   ],
   imports: [
     BrowserModule,

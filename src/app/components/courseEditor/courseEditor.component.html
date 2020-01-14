@@ -21,7 +21,7 @@
 
         <!-- start of accordion -->
         <div id="accordion" class="myaccordion" *ngFor="let module of modules; let i = index;">
-            <app-course-block [module]="module" [i]="i"></app-course-block>
+            <app-course-block [module]="module" [i]="i" [courseId]="courseId"></app-course-block>
         </div>
         <!-- end of accordion -->
 

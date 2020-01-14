@@ -17,6 +17,8 @@ import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { AddLectureComponent } from './components/add-lecture/add-lecture.component';
 import { QuizEditorComponent } from './components/quiz-editor/quiz-editor.component';
+import { QuizStatsComponent } from './quiz-stats/quiz-stats.component';
+import { Path1Component } from './path1/path1.component';
 
 
 const routes: Routes = [
@@ -27,16 +29,18 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuardService], data: {breadcrumb: 'Dashboard'} },
   { path: 'login', component: LoginComponent},
   { path: 'courses', component: CoursesComponent, canActivate:[AuthGuardService], data: {breadcrumb: 'Courses'}  },
-  { path: 'courseEditor/:course_id', component: CourseEditorComponent, canActivate:[AuthGuardService], data: {breadcrumb: 'View Courses'} },
-  { path: 'profile', component: ProfileComponent, canActivate:[AuthGuardService] },
+  { path: 'courseEditor/:course_id', component: CourseEditorComponent, canActivate:[AuthGuardService], data: {breadcrumb: 'Edit Courses'} },
+  { path: 'profile', component: ProfileComponent, canActivate:[AuthGuardService] ,data: {breadcrumb: 'Profile'}},
   { path: 'home', component: HomeComponent},
   { path: 'upload', component: UploadComponent},
   { path: 'logout', component: LogoutComponent},
-  { path: 'viewLecture', component: ViewLectureComponent},
-  { path: 'quizView', component: QuizViewComponent},
-  { path: 'stats', component: StatsComponent},
-  { path: 'addLecture/:lecture_id', component: AddLectureComponent},
-  { path: 'quizEditor/:quiz_id', component: QuizEditorComponent},
+  { path: 'viewLecture/:course_id', component: ViewLectureComponent, data: {breadcrumb: 'View Lectures'}},
+  { path: 'quizView', component: QuizViewComponent, data: {breadcrumb: 'Quiz View'}},
+  { path: 'stats', component: StatsComponent, data: {breadcrumb: 'Statistics'}},
+  { path: 'quiz-stats', component: QuizStatsComponent, data: {breadcrumb: 'Quiz Statistics'}},
+  { path: 'addLecture/:lecture_id', component: AddLectureComponent, data: {breadcrumb: 'Add Lecture'}},
+  { path: 'quizEditor/:quiz_id', component: QuizEditorComponent, data: {breadcrumb: 'Quiz Editor'}},
+  { path: 'path1', component: Path1Component, data: {breadcrumb: 'Angular Path'}},
 ];
 
 @NgModule({

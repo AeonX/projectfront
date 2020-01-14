@@ -3,29 +3,23 @@
         <ng8-breadcrumb></ng8-breadcrumb>
     </div>
     <div class="row mb-5">
-        <div class="col-lg-6" style="border-right: 2px solid #DC3545">
+        <div class="col-lg-6" style="border-right: 2px solid #e74c3c">
             <div>
                 <div style="display: block">
                     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
                         [legend]="barChartLegend" [chartType]="barChartType">
                     </canvas>
                 </div>
-                <button class="btn btn-success" style="margin-left: 40%; background: #2ecc71" routerLink="/quiz-stats">
-                    View Quiz Stats
-                </button>
             </div>
         </div>
 
-        <div class="col-lg-6" style="border-left: 2px solid #DC3545">
+        <div class="col-lg-6" style="border-left: 2px solid #f1c40f">
             <div>
                 <div style="display: block">
                     <canvas baseChart [datasets]="barChartData1" [labels]="barChartLabels1" [options]="barChartOptions"
                         [legend]="barChartLegend" [chartType]="barChartType">
                     </canvas>
                 </div>
-                <button class="btn btn-success" style="margin-left: 40%; background: #e67e22">
-                    View Quiz Stats
-                </button>
             </div>
         </div>
     </div>
@@ -33,29 +27,19 @@
     <hr>
 
     <div class="row mt-5">
-        <div class="col-lg-6" style="border-right: 2px solid #DC3545">
+        <div class="col-lg-6" style="border-right: 2px solid #2ecc71">
             <div>
                 <div style="display: block">
                     <canvas baseChart [datasets]="barChartData2" [labels]="barChartLabels2" [options]="barChartOptions"
                         [legend]="barChartLegend" [chartType]="barChartType">
                     </canvas>
                 </div>
-                <button class="btn btn-success" style="margin-left: 40%; background: #f1c40f">
-                    View Quiz Stats
-                </button>
             </div>
         </div>
 
-        <div class="col-lg-6" style="border-left: 2px solid #DC3545">
+        <div class="col-lg-6" style="border-left: 2px solid #e67e22">
             <div>
-                <div style="display: block">
-                    <canvas baseChart [datasets]="barChartData3" [labels]="barChartLabels3" [options]="barChartOptions"
-                        [legend]="barChartLegend" [chartType]="barChartType">
-                    </canvas>
-                </div>
-                <button class="btn btn-success" style="margin-left: 40%; background: #e74c3c">
-                    View Quiz Stats
-                </button>
+
             </div>
         </div>
     </div>

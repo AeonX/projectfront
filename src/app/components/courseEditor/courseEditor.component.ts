@@ -43,6 +43,8 @@ export class CourseEditorComponent implements OnInit {
     courseLecture: null
   }
 
+  courseId = this.route.snapshot.paramMap.get('course_id');
+
   constructor(private moduleService: ModuleService, private route: ActivatedRoute, private lectureService: LectureService) {
   }
 
@@ -79,6 +81,7 @@ export class CourseEditorComponent implements OnInit {
       course: {
         course_id: parseInt(this.route.snapshot.paramMap.get('course_id')),
         course_name: null,
+        course_level: null,
         description: null,
         created_on: null,
         img_url: null,

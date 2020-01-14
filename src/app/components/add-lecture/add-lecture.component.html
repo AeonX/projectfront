@@ -22,6 +22,9 @@
             </ul>
         </div>
     </nav>
+    <div class="row">
+        <ng8-breadcrumb></ng8-breadcrumb>
+    </div>
 
     <div class="row" *ngIf="!goToQuiz">
         <div class="col-lg-6 offset-lg-3">
@@ -54,8 +57,7 @@
     <div class="col-lg-4 offset-lg-4">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Module 1 quiz</h5>
-                <p class="card-text">Some quick example text</p>
+                <h5 class="card-title">Quiz</h5>
                 <a class="btn btn-primary" [routerLink]="['/quizEditor', currentQuizId]">Add questions</a>
             </div>
         </div>

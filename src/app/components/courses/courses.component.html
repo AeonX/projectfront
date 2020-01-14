@@ -18,9 +18,8 @@
             <div class="card-body">
               <h5 class="card-title">{{course.course_name}}</h5>
               <p class="card-text">{{course.description}}</p>
-              <a href="#" class="btn btn-danger mr-5" *ngIf="role_id === 2">Enroll</a>
-              <a [routerLink]="['/courseEditor', course.course_id]" class="btn btn-danger">Edit Course</a>
-              <a [routerLink]="['/viewLecture']" class="btn btn-danger">View Course</a>
+              <a [routerLink]="['/courseEditor', course.course_id]" *ngIf="!isStudent" class="btn btn-danger mr-4">Edit Course</a>
+              <a [routerLink]="['/viewLecture', course.course_id]" class="btn btn-danger" (click)="selectedCourse(course)">View Course</a>
             </div>
           </div>
         </div>

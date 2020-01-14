@@ -1,4 +1,7 @@
 <div class="container-fluid">
+        <div class="row">
+                <ng8-breadcrumb></ng8-breadcrumb>
+        </div>
         <form [formGroup]="formGroup">
                 <div class="row">
                         <h3 class="mt-4 mb-4 col-md-4 offset-md-2">Create Quiz</h3>
@@ -20,7 +23,8 @@
                                 <input id="choice1" type="text" class="form-control" formControlName="choice1">
                         </div>
                         <div class="col-md-1 mt-2">
-                                <input type="checkbox" class="form-check-input" id="choice1" formControlName="correctChoice1">
+                                <input type="checkbox" class="form-check-input" id="choice1"
+                                        formControlName="correctChoice1">
                         </div>
                 </div>
 
@@ -30,7 +34,8 @@
                                 <input id="choice2" type="text" class="form-control" formControlName="choice2">
                         </div>
                         <div class="col-md-1 mt-2">
-                                <input type="checkbox" class="form-check-input" id="choice2" formControlName="correctChoice2">
+                                <input type="checkbox" class="form-check-input" id="choice2"
+                                        formControlName="correctChoice2">
                         </div>
                 </div>
 
@@ -40,7 +45,8 @@
                                 <input id="choice3" type="text" class="form-control" formControlName="choice3">
                         </div>
                         <div class="col-md-1 mt-2">
-                                <input type="checkbox" class="form-check-input" id="choice3" formControlName="correctChoice3">
+                                <input type="checkbox" class="form-check-input" id="choice3"
+                                        formControlName="correctChoice3">
                         </div>
                 </div>
 
@@ -50,13 +56,15 @@
                                 <input id="choice4" type="text" class="form-control" formControlName="choice4">
                         </div>
                         <div class="col-md-1 mt-2">
-                                <input type="checkbox" class="form-check-input" id="choice4" formControlName="correctChoice4">
+                                <input type="checkbox" class="form-check-input" id="choice4"
+                                        formControlName="correctChoice4">
                         </div>
                 </div>
 
                 <div class="col-sm-4 offset-sm-4">
-                        <button class="btn btn-danger mt-3 mr-5 ml-5" (click)="saveQuestion()">New Question</button>
-                        <button class="btn btn-danger mt-3">Save</button>
+                        <button class="btn btn-danger mt-3 mr-5 ml-5" *ngIf="removeNewQuestion"
+                                (click)="saveQuestion()">New Question</button>
+                        <button class="btn btn-danger mt-3" *ngIf="switchToSave">Save</button>
                 </div>
         </form>
 </div>

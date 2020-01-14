@@ -20,6 +20,7 @@ export interface UserDtos {
 export interface courseDto {
     course_id: number;
     course_name: string;
+    course_level: string;
     description: string;
     created_on: string;
     img_url: string;

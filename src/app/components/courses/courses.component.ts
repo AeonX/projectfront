@@ -37,6 +37,7 @@ export class CoursesComponent implements OnInit, OnChanges {
   course: courseDto = {
     course_id: null,
     course_name: null,
+    course_level: null,
     description: null,
     created_on: null,
     img_url: null,
@@ -44,6 +45,7 @@ export class CoursesComponent implements OnInit, OnChanges {
       id: null
     }
   }
+  isStudent: boolean;
 
   currentUserRole = this.currentUser.authorities[0] ? this.currentUser.authorities[0] : "";
 
@@ -54,7 +56,11 @@ export class CoursesComponent implements OnInit, OnChanges {
     private route: ActivatedRoute, private authenticationService: AuthenticationService,
     private enrollmentService: EnrollmentService, private userService: UserService) {
 
-    if (this.currentUserRole && this.currentUserRole == "STANDARD_USER") { this.isAdmin = true }
+      if(this.currentUser['authorities'][0] !== 'STUDENT_USER') {
+        this.isStudent = false;
+      } else {
+        this.isStudent = true;
+      }
   }
 
   ngOnInit() {
@@ -69,24 +75,18 @@ export class CoursesComponent implements OnInit, OnChanges {
         }
       })
 
-      console.log('this', this.currentUserRole);
-
       if (this.currentUserRole === "INSTRUCTOR_USER") {
         this.isAdmin = true;
 
         this.courseService.findAllCourses().subscribe(courses => {
           courses.forEach(course => {
-            if(userId === course.user.id) {
+            if(course && course.user !== null && userId === course.user.id) {
               this.courses.push(course)
             }
           })
         });
 
       }
-
-      console.log('new userid', userId);
-
-
 
       this.courseService.findAllCourses().subscribe(courses => {
         //get courses enrolled by student
@@ -141,6 +141,9 @@ export class CoursesComponent implements OnInit, OnChanges {
 
   onClickCreateCourse(): void {
     this.isCreateCourse = true;
+  }
+
+  selectedCourse(course) {
   }
 
   fileEvent(fileInput: any) {

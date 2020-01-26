@@ -3,9 +3,9 @@ import { CourseService } from 'src/app/service/course.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as AWS from 'aws-sdk';
-import { UserService } from 'src/app/service/user.service';
 import { courseDto, UserDtos } from 'src/app/model/backend.model';
-import { IoTThingsGraph } from 'aws-sdk';
+
+declare var $: any;
 
 @Component({
   selector: 'app-courses',
@@ -46,15 +46,15 @@ export class CoursesComponent implements OnInit, OnChanges {
     this.courseService.findAllCourses().subscribe(courses => {
       courses.filter(result => {
         if (this.userDto.user_id === result.userEntity.user_id) {
+          console.log(result)
           this.courses.push(result);
         }
       })
-
     });
 
     this.courseForm = new FormGroup({
-      coursename: new FormControl('Please enter a course name.', [Validators.required]),
-      description: new FormControl('Please enter a description.', [Validators.required])
+      coursename: new FormControl(),
+      description: new FormControl()
     });
   }
 
@@ -86,7 +86,9 @@ export class CoursesComponent implements OnInit, OnChanges {
       });
     });
 
-    console.log(this)
+    console.log($)
+    $("#courseForm").trigger("reset");
+
   }
 
   gotoUserList() {
@@ -132,6 +134,7 @@ export class CoursesComponent implements OnInit, OnChanges {
       this.imgSize = 100;
       //change canSaveCourse to 1 when image is uploaded to be able to save 
       this.canSaveCourse = 1;
+      console.log(this.canSaveCourse)
     })
   }
 

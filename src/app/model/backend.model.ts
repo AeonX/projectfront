@@ -26,3 +26,11 @@ export interface moduleDto {
     description: string;
     courseEntity: courseDto;
 }
+
+export interface lectureDto {
+    lecture_id: number;
+    lecture_name: string;
+    description: string;
+    video_url: string;
+    moduleEntity: moduleDto;
+}

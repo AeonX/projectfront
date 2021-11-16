@@ -21,7 +21,7 @@
     "@angular/router": "~8.2.8",
     "@cloudinary/angular-5.x": "^1.0.3",
     "angular-progress-bar": "^1.0.9",
-    "aws-sdk": "^2.544.0",
+    "aws-sdk": "^2.814.0",
     "bootstrap": "^4.3.1",
     "cloudinary-core": "^2.7.4",
     "font-awesome": "^4.7.0",
